@@ -1,1 +1,5 @@
-%h3 Stories
+%h1
+  = '故事列表'
+- @stories.each do |s|
+  %p
+    = link_to ("#{s.story_name}"), "/stories/#{s.id}"
