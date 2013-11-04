@@ -1,0 +1,13 @@
+%h1
+  = @story.story_name
+%p
+  = '地點: ' + @story.appear_location
+%p
+  = '時間: '"#{@story.appear_day} #{@story.appear_time_from} - #{@story.appear_time_to}"
+%p
+  = @story.story_name + '的故事'
+%p
+  = @story.story_details
+%p
+  = link_to (button_tag '編輯文章', class: "btn btn-primary btn-lg disabled", role: "button"), "#{edit_story_path}"
+  = link_to (button_tag '刪除文章', class: "btn btn-primary btn-lg disabled", role: "button"), "#{story_path(@story.id)}", confirm: '確定刪除?', method: :delete
