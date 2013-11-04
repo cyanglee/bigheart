@@ -1,0 +1,11 @@
+development:
+  mail_ad: marcuslin0724@gmail.com
+  mail_pw: 0972968663
+
+test:
+  mail_ad: marcuslin0724@gmail.com
+  mail_pw: 0972968663
+
+production:
+  mail_ad: marcuslin0724@gmail.com
+  mail_pw: 0972968663
