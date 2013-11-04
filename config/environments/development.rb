@@ -25,8 +25,6 @@ Bigheart::Application.configure do
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
-  MAIL = YAML.load_file("#{::Rails.root}/config/mail.yml")[::Rails.env]
-
   config.assets.debug = true
 
   config.action_mailer.smtp_settings = {
@@ -34,8 +32,8 @@ Bigheart::Application.configure do
     port: 587,
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: MAIL['mail_ad'],
-    password: MAIL['mail_pw']
+    user_name: Settings.mail_ad.dup,
+    password: Settings.mail_pw.dup
   }
   # Send email in development mode.
   config.action_mailer.perform_deliveries = true

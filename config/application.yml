@@ -1,0 +1,18 @@
+# config/application.yml
+defaults: &defaults
+
+development:
+  <<: *defaults
+# admin info
+  admin_name: 'admin'
+  admin_email: 'admin@example.com'
+  admin_password: '11111111'
+# mailer email and password
+  mail_ad: marcuslin0724@gmail.com
+  mail_pw: 0972968663
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
