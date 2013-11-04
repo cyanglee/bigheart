@@ -1,0 +1,13 @@
+# config/application.yml
+defaults: &defaults
+
+development:
+  <<: *defaults
+  admin_name: 'admin'
+  admin_email: 'admin@example.com'
+  admin_password: '11111111'
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
