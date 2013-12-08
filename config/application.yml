@@ -9,9 +9,9 @@ development:
   admin_password: '11111111'
 # admin email
   mail_ad: marcuslin0724@gmail.com
-  mail_pw: 0972968663z
+  mail_pw: 0972968663
 # facebook
-  app_id: '250816725069932'
+  app_id: 250816725069932
   secret: 2acfc3ef37cb06125208f083d1dad765
 
 test:
