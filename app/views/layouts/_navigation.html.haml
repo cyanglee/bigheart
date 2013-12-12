@@ -1,4 +1,7 @@
 = link_to "Bigheart", root_path, :class => 'brand'
+%ul.nav
+  %li
+    = link_to '閱讀所有故事', stories_path
 %ul.nav.navbar-form.pull-right
   - if user_signed_in?
     %li.dropdown
@@ -12,11 +15,12 @@
             = link_to '管理文章', users_path
         - else
           %li
-            = link_to '編輯帳號', edit_user_registration_path
+            = link_to '編輯帳號', edit_user_registration_path if current_user.provider.blank?
           %li
             = link_to '發表文章', new_story_path
+            = link_to '我發佈的文章'
   - else
-    = simple_form_for :user, url: 'users/sign_in' do |f|
+    = simple_form_for :user, url: 'users/sign_in', :html => {:class => "navbar-form pull-right"} do |f|
       = f.input_field :email, :autofocus => true, class: "input-medium", type: "text", placeholder: "email"
       = f.input_field :password, class: "input-medium", type: "password", placeholder: "password"
       = f.button :submit, '登入', class: "btn btn-primary btn-small"

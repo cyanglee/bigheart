@@ -50,7 +50,10 @@ class StoriesController < ApplicationController
     redirect_to stories_path
   end
 
+private
   def story_params
     params.require(:story).permit(:appear_day, :appear_time_from, :appear_time_to, :appear_location, :story_details, :story_name)
   end
+
+
 end
