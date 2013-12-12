@@ -1,4 +1,10 @@
-%h3 Home
-- @users.each do |user|
-  %p
-    User: #{link_to user.name, user}
+-#%h3 Home
+-#- @users.each do |user|
+-#  %p
+-#    User: #{link_to user.name, user}
+%h1 What is Big Heart
+%h3 在台灣的某個角落，有一些急需幫助的人，但他們只願意用自己的勞力換取他們需要的幫助。
+%p 123
+%p
+  = link_to '立即註冊 »', new_user_registration_path, class: "btn btn-primary btn-large"
+

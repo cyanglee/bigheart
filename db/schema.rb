@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131102114846) do
+ActiveRecord::Schema.define(version: 20131209110230) do
 
   create_table "roles", force: true do |t|
     t.string   "name"
@@ -32,10 +32,6 @@ ActiveRecord::Schema.define(version: 20131102114846) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "story_name"
-    t.string   "story_pics_name"
-    t.string   "story_pics_content_type"
-    t.integer  "story_pics_size"
-    t.datetime "story_pics_updated_at"
     t.string   "appear_time_to"
   end
 
@@ -57,6 +53,8 @@ ActiveRecord::Schema.define(version: 20131102114846) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
+    t.string   "provider"
+    t.string   "uid"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
