@@ -3,5 +3,5 @@ Bigheart::Application.routes.draw do
   resources :users
   resources :stories
 
-  root :to => "stories#index"
+  root :to => "home#index"
 end

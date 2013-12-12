@@ -1,19 +1,28 @@
 = link_to "Bigheart", root_path, :class => 'brand'
-%ul.nav
+%ul.nav.navbar-form.pull-right.form-inline
   - if user_signed_in?
+    %li.dropdown
+      %a.dropdown-toggle dropdown
+      %b.caret
     %li
       = link_to '登出', destroy_user_session_path, :method=>'delete'
-  - else
-    %li
-      = link_to '登入', new_user_session_path
-  - if user_signed_in?
     %li
       = link_to '編輯帳號', edit_user_registration_path
-    - if current_user.has_role? :admin
-      %li
-        = link_to 'Admin', users_path
-  - else
     %li
-      = link_to '註冊', new_user_registration_path
-  %li
-    = link_to '發表文章', new_story_path
+      = link_to '發表文章', new_story_path
+    %li
+      = link_to 'Admin', users_path if current_user.has_role? :admin
+  - else
+    = simple_form_for :user, url: 'users/sign_in' do |f|
+      = f.input_field :email, :autofocus => true, type: "text", placeholder: "email"
+      = f.input_field :password, type: "password", placeholder: "password"
+      = f.button :submit, '登入', class: "btn btn-primary btn-small"
+      = link_to "Facebook登入", user_omniauth_authorize_path(:facebook), class: 'btn btn-primary btn-small'
+  -#= link_to '登入', new_user_session_path
+
+-#%form.navbar-form.pull-right
+-#%form.navbar-form.pull-right
+-#  %input.span2(type="text" placeholder="email")
+-#  %input.span2(type="password" placeholder="password")
+-#  %button.btn.btn-primary sign in
+-#  %button.btn.btn-primary Facebook登入
