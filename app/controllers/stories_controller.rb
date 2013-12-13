@@ -20,6 +20,7 @@ class StoriesController < ApplicationController
       s.appear_day = story_info["appear_day"]
       s.appear_location = story_info["appear_location"]
       s.story_details = story_info["story_details"]
+      s.user_id = current_user.id
     end
 
     if @story.save

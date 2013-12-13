@@ -31,6 +31,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def users_stories
+    @stories = Story.where(user_id: current_user.id)
+  end
+
   def user_params
     params.require(:user).permit(:email, :name,:password, :password_confirmation, :uid, :provider)
     # , :provider, :uid)

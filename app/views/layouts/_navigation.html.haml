@@ -27,7 +27,7 @@
                   = link_to '編輯帳號', edit_user_registration_path if current_user.provider.blank?
                 %li
                   = link_to '發表文章', new_story_path
-                  = link_to '我發佈的文章'
+                  = link_to '我發佈的文章', stories_user_path(current_user.id)
         - else
           = simple_form_for :user, url: 'users/sign_in', :html => { :class => "navbar-right form-inline", :role => "form"} do |f|
             .form-group
