@@ -14,3 +14,10 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+
+$('#stories').isotope({
+    // options
+    itemSelector : '.story'
+//    layoutMode : 'fitRows'
+});

@@ -9,6 +9,6 @@
   %p
     = f.input :appear_location, label: false, class: "appear_location", type: "text", placeholder: "地點"
   %p
-    = f.input :story_details, label: false, class: "form-control input-lg", type: "text", placeholder: "Write your story here."
+    = f.input :story_details, as: :text, label: false, class: "form-control input-lg", type: "text", placeholder: "Write your story here."
   %p
     = f.button :submit, "發表故事", class: "btn btn-primary", role: "button"
