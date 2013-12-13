@@ -11,7 +11,7 @@
       %ul.nav.navbar-nav
         %li
           = link_to '閱讀所有故事', stories_path
-      %ul.nav.navbar-form.navbar-right
+      %ul.nav.navbar-right
         - if user_signed_in?
           %li.dropdown
             %a.dropdown-toggle(href="#" data-toggle="dropdown") #{current_user.name}
