@@ -34,7 +34,7 @@ TW:
     confirmations:
       send_instructions: '您將在幾分鐘後收到一封電子郵件，內有確認帳號的步驟說明。'
       send_paranoid_instructions: '如果我們有您的電子信箱，您將會收到一封確認您的帳號的電子郵件。'
-      confirmed: '您的帳號已經過確認，現在您已成功登入。'
+      confirmed: '您已成功認證您的帳號。'
     registrations:
       signed_up: '註冊成功，歡迎！'
       signed_up_but_unconfirmed: '確認信件已送至您的 Email 信箱，請點擊信件內連結以啓動您的帳號。'
