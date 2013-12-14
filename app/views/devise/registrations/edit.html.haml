@@ -1,13 +1,18 @@
 %h2
   Edit #{resource_name.to_s.humanize}
-= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-vertical' }) do |f|
+= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-vertical', role: "form"}) do |f|
   = f.error_notification
   = display_base_errors resource
-  = f.input :name, :autofocus => true
-  = f.input :email, :required => true
-  = f.input :password, :autocomplete => "off", :placeholder => "leave it blank if you don't want to change it", :required => false
-  = f.input :password_confirmation, :required => false
-  = f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true
+  .form-group
+    = f.input :name, :input_html => {class: "form-control"}, :autofocus => true , type: "text"
+  .form-group
+    = f.input :email, :input_html=> {class: "form-control"}, id: "disabledInput", type: "email", disabled: true
+  .form-group
+    = f.input :password, :input_html=> {class: "form-control"}, :autocomplete => "off", :placeholder => "leave it blank if you don't want to change it", :required => false
+  .form-group
+    = f.input :password_confirmation, :input_html=> {class: "form-control"}, :required => false
+  .form-group
+    = f.input :current_password, :input_html=> {class: "form-control"}, :hint => "we need your current password to confirm your changes", :required => true
   = f.button :submit, '完成編輯', :class => 'btn-primary'
 %h3 Cancel my account
 %p
