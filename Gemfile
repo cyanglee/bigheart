@@ -19,6 +19,7 @@ gem 'settingslogic'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'oauth2'
+gem 'carrierwave'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
