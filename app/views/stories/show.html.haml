@@ -9,5 +9,6 @@
 %p
   = @story.story_details
 %p
-  = link_to (button_tag '編輯文章', class: "btn btn-primary"), "#{edit_story_path}"
-  = link_to (button_tag '刪除文章', class: "btn btn-primary"), "#{story_path(@story.id)}", confirm: '確定刪除?', method: :delete
+  - if @story.user_id == current_user.id
+    = link_to (button_tag '編輯文章', class: "btn btn-primary"), "#{edit_story_path}"
+    = link_to (button_tag '刪除文章', class: "btn btn-primary"), "#{story_path(@story.id)}", confirm: '確定刪除?', method: :delete

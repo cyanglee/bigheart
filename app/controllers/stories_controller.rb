@@ -1,4 +1,6 @@
 class StoriesController < ApplicationController
+  before_action :check_user, only: [:edit, :destroy]
+
   def index
     @stories = Story.all
     #binding.pry
@@ -56,5 +58,10 @@ private
     params.require(:story).permit(:appear_day, :appear_time_from, :appear_time_to, :appear_location, :story_details, :story_name)
   end
 
-
+  def check_user
+    story = Story.find(params[:id])
+    if story.user_id != current_user.id
+      raise "you're not able to edit this story"
+    end
+  end
 end
