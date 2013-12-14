@@ -11,6 +11,6 @@
   .form-group
     = f.input :appear_location, :input_html => {:class => "form-control"}, type: "text", placeholder: "地點"
   .form-group
-    = f.input :story_details, :input_html => {:class => "form-control"}, as: :text, class: "form-control input-lg", type: "text", placeholder: "Write your story here."
+    = f.input :story_details, :input_html => {:class => "form-control", :rows => "8"}, as: :text, class: "form-control input-lg", type: "text", placeholder: "Write your story here."
   .form-group
     = f.button :submit, "發表故事", class: "btn btn-primary", role: "button"
