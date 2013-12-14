@@ -1,14 +1,16 @@
 -#-*- encoding : utf-8 -*-
-= simple_form_for @story do |f|
-  = f.input :story_name, label: false, class: "form-control input-lg", placeholder: "Story name"
-  %p
-    = f.input :appear_day, label: false, class: "date", collection: ["星期一","星期二","星期三","星期四","星期五","星期六","星期日", "週一至週日"], selected: "星期一"
-  %p
-    = f.input :appear_time_from, label: false, class: "time", collection: ["1:00","2:00","3:00","4:00","5:00","6:00","7:00","8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00"], selected: "12:00"
-    = f.input :appear_time_to, label: false, class: "time", collection: ["1:00","2:00","3:00","4:00","5:00","6:00","7:00","8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00"], selected: "12:00"
-  %p
-    = f.input :appear_location, label: false, class: "appear_location", type: "text", placeholder: "地點"
-  %p
-    = f.input :story_details, as: :text, label: false, class: "form-control input-lg", type: "text", placeholder: "Write your story here."
-  %p
+= simple_form_for @story, :html => {class: "form-vertical"} do |f|
+  .form-group
+    = f.input :story_name, :input_html => {:class => "form-control"}, placeholder: "Story name"
+  .form-group
+    = f.input :appear_day, :input_html => {:class => "form-control"}, collection: ["星期一","星期二","星期三","星期四","星期五","星期六","星期日", "週一至週日"], selected: "星期一"
+  .form-group
+    = f.input :appear_time_from, :input_html => {:class => "form-control"}, class: "time", collection: ["1:00","2:00","3:00","4:00","5:00","6:00","7:00","8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00"], selected: "12:00"
+  .form-group
+    = f.input :appear_time_to, :input_html => {:class => "form-control"}, class: "time", collection: ["1:00","2:00","3:00","4:00","5:00","6:00","7:00","8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00"], selected: "12:00"
+  .form-group
+    = f.input :appear_location, :input_html => {:class => "form-control"}, type: "text", placeholder: "地點"
+  .form-group
+    = f.input :story_details, :input_html => {:class => "form-control"}, as: :text, class: "form-control input-lg", type: "text", placeholder: "Write your story here."
+  .form-group
     = f.button :submit, "發表故事", class: "btn btn-primary", role: "button"
