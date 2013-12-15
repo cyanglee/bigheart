@@ -26,7 +26,7 @@ class StoriesController < ApplicationController
     end
 
     if @story.save
-      redirect_to stories_path, notice: 'Story successfully created.'
+      redirect_to stories_path, notice: '成功故事發表.'
     else
       render action: 'new'
     end
@@ -40,7 +40,7 @@ class StoriesController < ApplicationController
     @story = Story.find(params[:id])
 
     if @story.update_attributes(story_params)
-      redirect_to stories_path, notice: 'Story updated.'
+      redirect_to stories_path, notice: '成功編輯故事.'
     else
       render action: 'edit'
     end

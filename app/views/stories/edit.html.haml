@@ -1,16 +1,1 @@
--#-*- encoding : utf-8 -*-
-= simple_form_for @story, :html => {:class => 'form-vertical', role: "form"} do |f|
-  .form-group
-    = f.input :story_name, :input_html => {class: "form-control"}, placeholder: "#{@story.story_name}"
-  .form-group
-    = f.input :appear_day, :input_html => {class: "form-control"}, class: "date", collection: ["星期一","星期二","星期三","星期四","星期五","星期六","星期日", "週一至週日"], selected: "#{@story.appear_day}"
-  .form-group
-    = f.input :appear_time_from, :input_html => {class: "form-control"}, class: "time", collection: ["1:00","2:00","3:00","4:00","5:00","6:00","7:00","8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00"], selected: "#{@story.appear_time_from}"
-  .form-group
-    = f.input :appear_time_to, :input_html => {class: "form-control"}, class: "time", collection: ["1:00","2:00","3:00","4:00","5:00","6:00","7:00","8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00"], selected: "#{@story.appear_time_to}"
-  .form-group
-    = f.input :appear_location, :input_html => {class: "form-control"}, class: "appear_location", type: "text", placeholder: "#{@story.appear_location}"
-  .form-group
-    = f.input :story_details, :input_html => {class: "form-control", :rows => "8"}, as: :text, class: "form-control input-lg", type: "text", placeholder: "#{@story.story_details}"
-  .form-group
-    = f.button :submit, "完成編輯", class: "btn btn-primary"
+= render 'stories/stories'
