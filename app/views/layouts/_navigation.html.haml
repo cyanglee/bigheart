@@ -6,7 +6,10 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      = link_to "Bigheart", stories_path,class: "navbar-brand"
+      - if user_signed_in?
+        = link_to "Bigheart", stories_path,class: "navbar-brand"
+      -else
+        = link_to "Bigheart", root_path, class: "navbar-brand"
     .navbar-collapse.collapse
       .nav.navbar-nav
         %li
@@ -32,7 +35,7 @@
             %li
               = link_to '管理文章', users_path
         - else
-          = simple_form_for :user, url: 'users/sign_in', :html => { :class => "navbar-form form-inline", :role => "form"} do |f|
+          = simple_form_for :user, url: new_user_session_path, :html => { :class => "navbar-form form-inline", :role => "form"} do |f|
             .form-group
               = f.input_field :email, :autofocus => true, class: "form-control", type: "email", placeholder: "email"
             .form-group

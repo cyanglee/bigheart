@@ -1,5 +1,6 @@
 class StoriesController < ApplicationController
-  before_action :check_user, only: [:edit, :destroy]
+  before_action :check_user_id, only: [:edit, :destroy]
+  before_action :check_post_permit, only: :new
 
   def index
     @stories = Story.all
@@ -23,6 +24,7 @@ class StoriesController < ApplicationController
       s.appear_location = story_info["appear_location"]
       s.story_details = story_info["story_details"]
       s.user_id = current_user.id
+      s.image = story_info[:image]
     end
 
     if @story.save
@@ -58,10 +60,16 @@ private
     params.require(:story).permit(:appear_day, :appear_time_from, :appear_time_to, :appear_location, :story_details, :story_name)
   end
 
-  def check_user
+  def check_user_id
     story = Story.find(params[:id])
     if story.user_id != current_user.id
       raise "you're not able to edit this story"
+    end
+  end
+
+  def check_post_permit
+    if user_signed_in? == false
+      raise 'plz sign in or sign up'
     end
   end
 end

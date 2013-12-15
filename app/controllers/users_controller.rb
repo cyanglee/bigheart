@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   def destroy
     authorize! :destroy, @user, :message => 'Not authorized as an administrator.'
     user = User.find(params[:id])
-    unless user == current_user
+    unless user.id == current_user.id
       user.destroy
       redirect_to users_path, :notice => "User deleted."
     else
@@ -35,6 +35,7 @@ class UsersController < ApplicationController
     @stories = Story.where(user_id: current_user.id)
   end
 
+private
   def user_params
     params.require(:user).permit(:email, :name,:password, :password_confirmation, :uid, :provider)
     # , :provider, :uid)

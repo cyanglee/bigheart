@@ -82,3 +82,11 @@ $(function () {
 //        ,layoutMode : 'fitRows'
     });
 });
+
+$(function() {
+    $('#stories').imagesLoaded( function(){
+        $('#stories').isotope({
+            // options...
+        });
+    });
+});

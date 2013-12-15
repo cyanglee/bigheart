@@ -4,6 +4,7 @@
 
 #stories {
   margin: 0 auto 0 auto;
+  padding-bottom: 20px;
 }
 
 .story {
@@ -13,5 +14,17 @@
   background: white;
   border: solid;
   border-color: #d3d3d3;
+  min-height: 300px;
 //  margin: 0 auto 0 auto;
+}
+
+.story
+  p{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-height: 16px;     /* fallback */
+  max-height: 32px;      /* fallback */
+  -webkit-line-clamp: 2; /* number of lines to show */
+  -webkit-box-orient: vertical;
 }
