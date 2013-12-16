@@ -1,13 +1,17 @@
 %h1
-  = @story.story_name
-%p
-  = '地點: ' + @story.appear_location
-%p
-  = '時間: '"#{@story.appear_day} #{@story.appear_time_from} - #{@story.appear_time_to}"
-%p
   = @story.story_name + '的故事'
 %p
-  = @story.story_details
+  = image_tag @story.image_url(:show).to_s
 %p
-  = link_to (button_tag '編輯文章', class: "btn btn-primary"), "#{edit_story_path}"
-  = link_to (button_tag '刪除文章', class: "btn btn-primary"), "#{story_path(@story.id)}", confirm: '確定刪除?', method: :delete
+  = '地點: ' "#{@story.city} #{@story.appear_location}"
+%p
+  = '時段: ' "#{@story.appear_day} #{@story.appear_time_from} - #{@story.appear_time_to}"
+%p
+  .story_details
+    = simple_format(@story.story_details)
+    = '資訊來源: ' "#{@story.info_from}"
+%p
+  -if user_signed_in?
+    - if @story.user_id == current_user.id
+      = link_to (button_tag '編輯文章', class: "btn btn-primary"), "#{edit_story_path}"
+      = link_to (button_tag '刪除文章', class: "btn btn-primary"), "#{story_path(@story.id)}", confirm: '確定刪除?', method: :delete

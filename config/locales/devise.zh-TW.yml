@@ -2,7 +2,7 @@
 
 # Additional translations at https://github.com/plataformatec/devise/wiki/I18n
 
-TW:
+zh-TW:
   errors:
     messages:
       expired: "已經過期，請重新申請一個"
@@ -12,7 +12,6 @@ TW:
       not_saved:
         one: "有一個錯誤導致%{resource}不能被儲存："
         other: "有 %{count} 個錯誤導致%{resource}不能被儲存："
-
   devise:
     failure:
       already_authenticated: '你已經登入。'

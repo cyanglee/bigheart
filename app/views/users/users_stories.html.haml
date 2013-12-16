@@ -1,4 +1,9 @@
-%h3 我發佈的故事
-- @stories.each do |s|
-  %p
-    = link_to ("#{s.story_name}"), "/stories/#{s.id}"
+#stories
+  - @stories.each do |s|
+    .story
+      -#%img.img-thumbnail.img-responsive{alt: "140x140", "data-src" => "holder.js/140x140", src: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAYAAACuwEE+AAAFi0lEQVR4Xu2XZ0teTRBAxyjYC/aCiNiwgR8URUX/ux0sIH6yi4pYwA5if5mFJ8QUcOJoeOY9C4HEO3c2c+Y4dzfn/Pz8VVgQeCeBHIR5JynCEgGEQQQTAYQx4SIYYXDARABhTLgIRhgcMBFAGBMughEGB0wEEMaEi2CEwQETAYQx4SIYYXDARABhTLgIRhgcMBFAGBMughEGB0wEEMaEi2CEwQETAYQx4SIYYXDARABhTLgIRhgcMBFAGBMughEGB0wEEMaEi2CEwQETAYQx4SIYYXDARABhTLgIRhgcMBFAGBMughEGB0wEEMaEi2CEwQETAYQx4SIYYXDARABhTLgIRhgcMBFAGBMughEGB0wEEMaEi2CEwQETAYQx4SIYYXDARABhTLgIRhgcMBFAGBMughEGB0wEEMaEi2CEwQETAYQx4SIYYXDARABhTLgIRhgcMBFAGBMughEGB0wEEMaEi2CEwQETAYQx4SIYYXDARABhTLgIRhgcMBFAGBMughEGB0wEsl6Yy8tLWV5elpaWFmlvb39T/MPDg6ysrMjz87N0dXVJdXV1er65uSmHh4fp7+Xl5TIwMCDfvn17F7iv3u9d/6kvDMpaYW5ubuTu7k7W19fl/v5e6urqpL+//w06leX8/Dz9rLe3VxoaGlL8wcFB+lleXp48PT1JSUmJDA8PS05Ozh/Rf/V+X+iAaausFWZ6ejqJklk/C3NyciJra2vfn6swtbW1MjU1lSbO0NCQlJWViebRSaTP9/b20qTp7OyUioqKNJ30mU6v7e1t1/10f51u2bayVpiXlxd5fX1NE+Po6OjNhNEmz8zMSGlpqVRWVsru7m4SoqamJgmjk2RycjLJsbCwILe3t+n56empnJ2dSUFBQWqmSpebmysTExPpHe/9dOJl28paYTKgNzY2ZH9//40wOhkuLi5So/Xzs7Ozkz5X+umZn59PQoyNjSUJfhRGJ9Ds7GyaKpk1MjKS3vuM/RDmH/y6/CyMHkqXlpbS+aStrU2Oj4/l6upKqqqqpLW1NX1m9Nn4+PgvE0YbqBNmdXU1VdLU1CTd3d1vqvLe7x8g+9CW4SaMHnJVit8tPZtsbW2Jfs50wuikmZubS4dnvSmpVJl/6/s6gXTCFBcX/3HCfGS/zK3tQx384pfDCaP8Hh8fE0Y9o2Su0Hqtbm5uTldw/VzpZ6awsDBNFI3TM03mPJSfny/65/r6Okk1Ojr6/dr9u0/g3+6n56NsW1kvjE4Mvd00NjZKT0/PL/wzDe7r65P6+vp0PtFzy4/nlMHBwTRNFhcX0/s6bVQonTY6jfSW1NHRkZ557ae3sGxcWS/M30LXm5HeeoqKitJN6LPXV+/3WfX8b4X5LKDR8yJM9A4714cwzkCjp0OY6B12rg9hnIFGT4cw0TvsXB/COAONng5honfYuT6EcQYaPR3CRO+wc30I4ww0ejqEid5h5/oQxhlo9HQIE73DzvUhjDPQ6OkQJnqHnetDGGeg0dMhTPQOO9eHMM5Ao6dDmOgddq4PYZyBRk+HMNE77FwfwjgDjZ4OYaJ32Lk+hHEGGj0dwkTvsHN9COMMNHo6hIneYef6EMYZaPR0CBO9w871IYwz0OjpECZ6h53rQxhnoNHTIUz0DjvXhzDOQKOnQ5joHXauD2GcgUZPhzDRO+xcH8I4A42eDmGid9i5PoRxBho9HcJE77BzfQjjDDR6OoSJ3mHn+hDGGWj0dAgTvcPO9SGMM9Do6RAmeoed60MYZ6DR0yFM9A4714cwzkCjp0OY6B12rg9hnIFGT4cw0TvsXB/COAONng5honfYuT6EcQYaPR3CRO+wc30I4ww0ejqEid5h5/oQxhlo9HQIE73DzvUhjDPQ6OkQJnqHnetDGGeg0dP9B3lVE7UKNrsNAAAAAElFTkSuQmCC", style: "width: 280px; height: 180px;"}/
+      = image_tag s.image_url(:thumb).to_s
+      %h3 #{s.story_name}
+      %strong #{s.appear_location} #{s.appear_time_from} - #{s.appear_time_to}
+      %p #{s.story_details}
+      %a.btn.btn-info{href: "/stories/#{s.id}", role: "button"} View details »

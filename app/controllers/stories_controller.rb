@@ -1,4 +1,7 @@
 class StoriesController < ApplicationController
+  before_action :check_user_id, only: [:edit, :destroy]
+  before_action :check_post_permit, only: :new
+
   def index
     @stories = Story.all
     #binding.pry
@@ -21,10 +24,13 @@ class StoriesController < ApplicationController
       s.appear_location = story_info["appear_location"]
       s.story_details = story_info["story_details"]
       s.user_id = current_user.id
+      s.image = story_info[:image]
+      s.info_from = story_info["info_from"]
+      s.city = story_info["city"]
     end
 
     if @story.save
-      redirect_to stories_path, notice: 'Story successfully created.'
+      redirect_to stories_path, notice: '成功故事發表.'
     else
       render action: 'new'
     end
@@ -36,9 +42,8 @@ class StoriesController < ApplicationController
 
   def update
     @story = Story.find(params[:id])
-
     if @story.update_attributes(story_params)
-      redirect_to stories_path, notice: 'Story updated.'
+      redirect_to stories_path, notice: '成功編輯故事.'
     else
       render action: 'edit'
     end
@@ -53,8 +58,19 @@ class StoriesController < ApplicationController
 
 private
   def story_params
-    params.require(:story).permit(:appear_day, :appear_time_from, :appear_time_to, :appear_location, :story_details, :story_name)
+    params.require(:story).permit(:appear_day, :appear_time_from, :appear_time_to, :appear_location, :story_details, :story_name, :city, :info_from)
   end
 
+  def check_user_id
+    story = Story.find(params[:id])
+    if story.user_id != current_user.id
+      raise "you're not able to edit this story"
+    end
+  end
 
+  def check_post_permit
+    if user_signed_in? == false
+      raise 'plz sign in or sign up'
+    end
+  end
 end
