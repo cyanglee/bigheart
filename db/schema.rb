@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131214112437) do
+ActiveRecord::Schema.define(version: 20131216055903) do
 
   create_table "roles", force: true do |t|
     t.string   "name"
@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(version: 20131214112437) do
     t.string   "appear_time_to"
     t.integer  "user_id"
     t.string   "image"
+    t.string   "info_from"
+    t.string   "city"
   end
 
   create_table "users", force: true do |t|

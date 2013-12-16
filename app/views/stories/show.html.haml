@@ -1,15 +1,15 @@
 %h1
-  = @story.story_name
+  = @story.story_name + '的故事'
 %p
   = image_tag @story.image_url(:show).to_s
 %p
-  = '地點: ' + @story.appear_location
+  = '地點: ' "#{@story.city} #{@story.appear_location}"
 %p
-  = '時間: '"#{@story.appear_day} #{@story.appear_time_from} - #{@story.appear_time_to}"
+  = '時段: ' "#{@story.appear_day} #{@story.appear_time_from} - #{@story.appear_time_to}"
 %p
-  = @story.story_name + '的故事'
-%p
-  = @story.story_details
+  .story_details
+    = simple_format(@story.story_details)
+    = '資訊來源: ' "#{@story.info_from}"
 %p
   -if user_signed_in?
     - if @story.user_id == current_user.id

@@ -25,6 +25,8 @@ class StoriesController < ApplicationController
       s.story_details = story_info["story_details"]
       s.user_id = current_user.id
       s.image = story_info[:image]
+      s.info_from = story_info["info_from"]
+      s.city = story_info["city"]
     end
 
     if @story.save
@@ -40,7 +42,7 @@ class StoriesController < ApplicationController
 
   def update
     @story = Story.find(params[:id])
-
+    binding.pry
     if @story.update_attributes(story_params)
       redirect_to stories_path, notice: '成功編輯故事.'
     else
@@ -57,7 +59,7 @@ class StoriesController < ApplicationController
 
 private
   def story_params
-    params.require(:story).permit(:appear_day, :appear_time_from, :appear_time_to, :appear_location, :story_details, :story_name)
+    params.require(:story).permit(:appear_day, :appear_time_from, :appear_time_to, :appear_location, :story_details, :story_name, :city, :info_from)
   end
 
   def check_user_id
