@@ -35,6 +35,7 @@ group :development do
   gem 'rb-inotify', :require=>false
   gem 'pry', "~>0.9.10"
   gem 'pry-rails', "~> 0.3.2"
+  gem 'state_machine'
 end
 group :development, :test do
   gem 'factory_girl_rails'

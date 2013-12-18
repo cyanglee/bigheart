@@ -3,7 +3,7 @@ class StoriesController < ApplicationController
   before_action :check_post_permit, only: :new
 
   def index
-    @stories = Story.all
+    @stories = Story.where(state: 3)
     #binding.pry
   end
 
@@ -27,10 +27,9 @@ class StoriesController < ApplicationController
       s.image = story_info[:image]
       s.info_from = story_info["info_from"]
       s.city = story_info["city"]
-    end
-
+  end
     if @story.save
-      redirect_to stories_path, notice: '成功故事發表.'
+      redirect_to stories_path, notice: ''
     else
       render action: 'new'
     end
@@ -43,10 +42,27 @@ class StoriesController < ApplicationController
   def update
     @story = Story.find(params[:id])
     if @story.update_attributes(story_params)
+      @story.edited!
       redirect_to stories_path, notice: '成功編輯故事.'
     else
       render action: 'edit'
     end
+  end
+
+  def manage_stories
+    @stories = Story.all
+  end
+
+  def update_state
+    story = Story.find(params[:id])
+    if params[:story][:state] == 'published'
+      story.published!
+    elsif params[:story][:state] == 'rejected'
+      story.rejected!
+    elsif params[:story][:state] == 'pended'
+      story.pended!
+    end
+    redirect_to manage_stories_path
   end
 
   def destroy
@@ -58,7 +74,7 @@ class StoriesController < ApplicationController
 
 private
   def story_params
-    params.require(:story).permit(:appear_day, :appear_time_from, :appear_time_to, :appear_location, :story_details, :story_name, :city, :info_from)
+    params.require(:story).permit(:appear_day, :appear_time_from, :appear_time_to, :appear_location, :story_details, :story_name, :city, :info_from, :state)
   end
 
   def check_user_id

@@ -1,0 +1,23 @@
+%h3 Users
+.span8
+  %table.table.table-condensed
+    %thead
+      %tr
+        %th story name
+        %th post by
+        %th current state
+        %th change state
+        %th
+        %th
+    %tbody
+      - @stories.each do |story|
+        - user = User.where(id: story.user_id)[0]
+        -#- binding.pry
+        %tr
+          %td= link_to story.story_name, story_path(story.id)
+          %td= user.name
+          %td= story.human_state_name
+          %td
+            %a.btn.btn-primary{"data-toggle" => "modal", :href => "#state-options-#{story.id}", :type => "button"} Change state
+            = render 'state'
+          -#%td= link_to("Delete user", user_path(user), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-mini') unless user == current_user

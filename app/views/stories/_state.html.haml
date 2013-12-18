@@ -1,0 +1,18 @@
+- Story.all.each do |story|
+  .modal.fade{:id => "state-options-#{story.id}", :style => "display: none;"}
+    .modal-dialog
+      .modal-content
+        = simple_form_for story, :url => update_state_story_path(story.id), :html => {method: 'get', :class => 'form-horizontal' } do |f|
+          .modal-header
+            %a.close{"data-dismiss" => "modal"} ×
+            %h3.modal-title Change Role
+          .modal-body
+            -#= f.collection_radio_buttons :state, [[:pending, 'pending'], [:reject, 'reject'], [:done, 'done']], :first, :last, :item_wrapper_class => 'inline', checked: story.state.first
+            - state = story.state_events
+            -if state.include?(:edited)
+              - state.delete(:edited)
+              no state
+            = f.input :state, :collection => state, :as => :radio_buttons, :label => false, :item_wrapper_class => 'inline'
+          .modal-footer
+            = f.submit "Change state", :class => "btn btn-primary"
+            %button.btn.btn-default{"data-dismiss" => "modal", type: "button"} Close
