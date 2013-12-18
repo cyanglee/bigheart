@@ -8,12 +8,8 @@ class Story < ActiveRecord::Base
     state :rejecting, value: 2
     state :publishing, value: 3
 
-    event :pended do
-      transition :editing => :pending
-    end
-
     event :edited do
-      transition [:pending, :rejecting, :publishing] => :editing
+      transition [:editing, :pending, :rejecting, :publishing] => :editing
     end
 
     event :rejected do
@@ -21,7 +17,7 @@ class Story < ActiveRecord::Base
     end
 
     event :published do
-      transition :pending => :publishing
+      transition [:editing, :pending] => :publishing
     end
   end
 end
