@@ -3,8 +3,8 @@ class StoriesController < ApplicationController
   before_action :check_post_permit, only: :new
 
   def index
-    @stories = Story.where(state: 3)
-    #binding.pry
+    # TODO: change the hardcoded value to reference
+      @stories = Story.where(state: Story::STATES.published)
   end
 
   def show
@@ -16,20 +16,25 @@ class StoriesController < ApplicationController
   end
 
   def create
-    story_info = params[:story]
-    @story = Story.where(story_name: story_info["story_name"]).first_or_create! do |s|
-      s.appear_time_from = story_info["appear_time_from"]
-      s.appear_time_to = story_info["appear_time_to"]
-      s.appear_day = story_info["appear_day"]
-      s.appear_location = story_info["appear_location"]
-      s.story_details = story_info["story_details"]
-      s.user_id = current_user.id
-      s.image = story_info[:image]
-      s.info_from = story_info["info_from"]
-      s.city = story_info["city"]
-  end
-    if @story.save
-      redirect_to stories_path, notice: ''
+    # TODO: create a validation for story_name
+
+    #story_info = params[:story]
+    #@story = Story.where(story_name: story_info["story_name"]).first_or_create! do |s|
+    #  s.appear_time_from = story_info["appear_time_from"]
+    #  s.appear_time_to = story_info["appear_time_to"]
+    #  s.appear_day = story_info["appear_day"]
+    #  s.appear_location = story_info["appear_location"]
+    #  s.story_details = story_info["story_details"]
+    #  s.user_id = current_user.id
+    #  s.image = story_info[:image]
+    #  s.info_from = story_info["info_from"]
+    #  s.city = story_info["city"]
+    #end
+    story = Story.new(story_params)
+    if story.valid?
+      story.user_id = current_user.id
+      story.save
+      redirect_to stories_path, notice: '123'
     else
       render action: 'new'
     end
@@ -42,7 +47,6 @@ class StoriesController < ApplicationController
   def update
     @story = Story.find(params[:id])
     if @story.update_attributes(story_params)
-      @story.edited!
       redirect_to stories_path, notice: '成功編輯故事.'
     else
       render action: 'edit'
@@ -55,13 +59,14 @@ class StoriesController < ApplicationController
 
   def update_state
     story = Story.find(params[:id])
-    if params[:story][:state] == 'published'
-      story.published!
-    elsif params[:story][:state] == 'rejected'
-      story.rejected!
-    elsif params[:story][:state] == 'pended'
-      story.pended!
-    end
+    story.send(params[:story][:state])
+    #if params[:story][:state].to_sym == :published
+    #  story.published!
+    #elsif params[:story][:state] == 'rejected'
+    #  story.rejected!
+    #elsif params[:story][:state] == 'pending'
+    #  story.pending!
+    #end
     redirect_to manage_stories_path
   end
 
@@ -69,12 +74,12 @@ class StoriesController < ApplicationController
     story = Story.find(params[:id])
     story.destroy
 
-    redirect_to stories_path
+    redirect_to stories_user_path(current_user.id)
   end
 
 private
   def story_params
-    params.require(:story).permit(:appear_day, :appear_time_from, :appear_time_to, :appear_location, :story_details, :story_name, :city, :info_from, :state)
+    params.require(:story).permit(:story_name, :appear_day, :appear_time_from, :appear_time_to, :city, :appear_location, :info_from, :story_details, :image)
   end
 
   def check_user_id

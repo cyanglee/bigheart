@@ -8,9 +8,6 @@
             %h3.modal-title Change State
           .modal-body
             - state = story.state_events
-            -if state.include?(:edited)
-              - state.delete(:edited)
-              no state
             = f.input :state, :collection => state, :as => :radio_buttons, :label => false, :item_wrapper_class => 'inline'
           .modal-footer
             = f.submit "Change state", :class => "btn btn-primary"

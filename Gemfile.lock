@@ -266,6 +266,7 @@ DEPENDENCIES
   guard-rails
   guard-rspec
   haml-rails
+  hashie
   html2haml
   hub
   jbuilder (~> 1.2)

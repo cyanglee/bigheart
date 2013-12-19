@@ -21,6 +21,7 @@ gem 'omniauth-facebook'
 gem 'oauth2'
 gem 'carrierwave'
 gem 'rmagick'
+gem 'hashie'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]

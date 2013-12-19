@@ -14,7 +14,7 @@
         %tr
           %td= link_to story.story_name, story_path(story.id)
           %td= user.name
-          %td= story.human_state_name
+          %td= Story::TRANS_STATES[story.state]
           %td
             %a.btn.btn-primary{"data-toggle" => "modal", :href => "#state-options-#{story.id}", :type => "button"} 變更狀態
             = render 'state'
