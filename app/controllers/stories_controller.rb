@@ -47,6 +47,7 @@ class StoriesController < ApplicationController
   def update
     @story = Story.find(params[:id])
     if @story.update_attributes(story_params)
+      @story.pending!
       redirect_to stories_path, notice: '成功編輯故事.'
     else
       render action: 'edit'
