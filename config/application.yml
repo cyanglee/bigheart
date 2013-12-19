@@ -5,10 +5,10 @@ development:
   <<: *defaults
 # admin info
   admin_name: 'marcus'
-  admin_email: 'admin@example.com'
+  admin_email: 'bigheart.marcus@gmail.com'
   admin_password: '11111111'
 # admin email
-  mail_ad: marcuslin0724@gmail.com
+  mail_ad: bigheart.marcus@gmail.com
   mail_pw: 0972968663
 # facebook
   app_id: '250816725069932'
@@ -21,10 +21,10 @@ production:
   <<: *defaults
 # admin info
   admin_name: 'marcus'
-  admin_email: 'marcuslin0724@gmail.com'
+  admin_email: 'bigheart.marcus@gmail.com'
   admin_password: '11111111'
 # admin email
-  mail_ad: marcuslin0724@gmail.com
+  mail_ad: bigheart.marcus@gmail.com
   mail_pw: 0972968663
 # facebook
   app_id: '250816725069932'
