@@ -33,7 +33,8 @@ Bigheart::Application.configure do
     authentication: "plain",
     enable_starttls_auto: true,
     user_name: Settings.mail_ad.dup,
-    password: Settings.mail_pw.dup
+    password: Settings.mail_pw.dup,
+    :domain => 'heroku.com'
   }
   # Send email in development mode.
   config.action_mailer.perform_deliveries = true
