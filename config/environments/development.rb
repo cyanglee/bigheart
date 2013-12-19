@@ -30,13 +30,13 @@ Bigheart::Application.configure do
   config.action_mailer.smtp_settings = {
     address: "smtp.gmail.com",
     port: 587,
-    domain: ENV["DOMAIN_NAME"],
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: ENV["GMAIL_USERNAME"],
-    password: ENV["GMAIL_PASSWORD"]
+    user_name: Settings.mail_ad.dup,
+    password: Settings.mail_pw.dup
   }
   # Send email in development mode.
   config.action_mailer.perform_deliveries = true
 
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 end

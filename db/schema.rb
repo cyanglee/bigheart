@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130911021020) do
+ActiveRecord::Schema.define(version: 20131217025310) do
 
   create_table "roles", force: true do |t|
     t.string   "name"
@@ -23,6 +23,22 @@ ActiveRecord::Schema.define(version: 20130911021020) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], name: "index_roles_on_name"
+
+  create_table "stories", force: true do |t|
+    t.string   "appear_day"
+    t.string   "appear_time_from"
+    t.string   "appear_location"
+    t.string   "story_details"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "story_name"
+    t.string   "appear_time_to"
+    t.integer  "user_id"
+    t.string   "image"
+    t.string   "info_from"
+    t.string   "city"
+    t.string   "state"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -42,6 +58,8 @@ ActiveRecord::Schema.define(version: 20130911021020) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
+    t.string   "provider"
+    t.string   "uid"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

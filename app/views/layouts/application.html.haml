@@ -4,22 +4,28 @@
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
       %title= content_for?(:title) ? yield(:title) : "Bigheart"
       %meta{:content => content_for?(:description) ? yield(:description) : "Bigheart", :name => "description"}
+        %link{:href => "//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css", :rel => "stylesheet"}/
         = stylesheet_link_tag "application", :media => "all"
         = javascript_include_tag "application"
+        %script{:src => "//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"}
         = csrf_meta_tags
         = yield(:head)
   %body{:class => "#{controller_name} #{action_name}"}
-    .navbar.navbar-fixed-top
-      %nav.navbar-inner
-        .container
-          = render 'layouts/navigation'
+    -##fb-root
+    -#:javascript
+    -#  (function(d, s, id) {
+    -#    var js, fjs = d.getElementsByTagName(s)[0];
+    -#    if (d.getElementById(id)) return;
+    -#    js = d.createElement(s); js.id = id;
+    -#    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=250816725069932";
+    -#    fjs.parentNode.insertBefore(js, fjs);
+    -#  }(document, 'script', 'facebook-jssdk'));
+    = render 'layouts/navigation'
     #main{:role => "main"}
       .container
         .content
-          .row
-            .span12
-              = render 'layouts/messages'
-              = yield
+          = render 'layouts/messages'
+          = yield
           %footer
       / ! end of .container
     / ! end of #main

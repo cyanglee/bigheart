@@ -1,0 +1,3 @@
+module StoryHelper
+
+end
