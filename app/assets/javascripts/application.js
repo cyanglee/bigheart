@@ -74,19 +74,16 @@ $.Isotope.prototype._masonryGetContainerSize = function () {
     };
 };
 
-
-$(function () {
-    $('#stories').isotope({
-        // options
-        itemSelector: '.story'
-//        ,layoutMode : 'fitRows'
-    });
-});
-
 $(function() {
     $('#stories').imagesLoaded( function(){
         $('#stories').isotope({
-            // options...
+            itemSelector: '.story'
         });
     });
+
+    $('#filters_city a').click(function(){
+        var selector = $(this).attr('data-filter');
+        $('#stories').isotope({ filter: selector });
+    });
+
 });

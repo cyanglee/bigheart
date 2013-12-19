@@ -6,7 +6,14 @@ Bigheart::Application.routes.draw do
     end
   end
 
-  resources :stories
+  resources :stories do
+    collection do
+      get :manage, action: "manage_stories"
+    end
+    member do
+      get 'update_state', to: 'stories#update_state'
+    end
+  end
 
   root :to => "home#index"
 end

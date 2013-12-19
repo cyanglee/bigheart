@@ -10,8 +10,3 @@
   .story_details
     = simple_format(@story.story_details)
     = '資訊來源: ' "#{@story.info_from}"
-%p
-  -if user_signed_in?
-    - if @story.user_id == current_user.id
-      = link_to (button_tag '編輯文章', class: "btn btn-primary"), "#{edit_story_path}"
-      = link_to (button_tag '刪除文章', class: "btn btn-primary"), "#{story_path(@story.id)}", confirm: '確定刪除?', method: :delete
