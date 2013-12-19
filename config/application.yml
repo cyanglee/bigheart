@@ -5,7 +5,7 @@ development:
   <<: *defaults
 # admin info
   admin_name: 'marcus'
-  admin_email: 'marcuslin0724@gmail.com'
+  admin_email: 'admin@example.com'
   admin_password: '11111111'
 # admin email
   mail_ad: marcuslin0724@gmail.com
