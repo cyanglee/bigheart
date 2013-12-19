@@ -21,6 +21,8 @@ gem 'oauth2'
 gem 'carrierwave'
 gem 'rmagick'
 gem 'hashie'
+gem 'pg'
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
@@ -50,5 +52,5 @@ end
 #  gem 'sqlite3'
 #end
 group :production do
-  gem 'pg'
+
 end
