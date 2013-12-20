@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
     unless user
       user = User.new(name:auth.extra.raw_info.name, provider:auth.provider, uid:auth.uid, email:auth.info.email, password:Devise.friendly_token[0,20])
       user.skip_confirmation!
+      user.add_role :user
       user.save
     end
     user
