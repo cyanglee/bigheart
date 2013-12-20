@@ -1,0 +1,12 @@
+%h2 變更密碼
+= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put, class: "form-vertical" }) do |f|
+  = f.error_notification
+  = f.input :reset_password_token, :as => :hidden
+  = f.full_error :reset_password_token
+  .form-group
+    = f.input :password, :label => "新密碼", :input_html => {class: "form-control"}, :required => true, :autofocus => true
+  .form-group
+    = f.input :password_confirmation, :label => "新密碼確認", :input_html => {class: "form-control"}, :required => true
+  .form-group
+    = f.button :submit, "變更密碼", class: "btn btn-primary"
+= render "devise/shared/links"
