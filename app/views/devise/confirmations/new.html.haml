@@ -1,0 +1,9 @@
+%h2 重新發送認證信
+= simple_form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post, :class => 'form-vertical' }) do |f|
+  = f.error_notification
+  = f.full_error :confirmation_token
+  .form-group
+    = f.input :email, label: "電子郵件", :input_html => {class: "form-control"}, :required => true, :autofocus => true
+  .form-group
+    = f.button :submit, "確認發送", :class => 'btn-primary'
+= render "devise/shared/links"

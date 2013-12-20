@@ -1,0 +1,8 @@
+%h2 忘記密碼?
+= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :class => 'form-vertical' }) do |f|
+  = f.error_notification
+  .form-group
+    = f.input :email, :input_html => {class: "form-control"}, :required => true, :autofocus => true, label: "電子郵件"
+  .form-group
+    = f.button :submit, "發送變更密碼確認信", class: "btn btn-primary"
+= render "devise/shared/links"

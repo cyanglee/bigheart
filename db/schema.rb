@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131217025310) do
+ActiveRecord::Schema.define(version: 20131220072156) do
 
   create_table "roles", force: true do |t|
     t.string   "name"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20131217025310) do
     t.string   "appear_day"
     t.string   "appear_time_from"
     t.string   "appear_location"
-    t.string   "story_details"
+    t.string   "story_details",    limit: 10000
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "story_name"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20131217025310) do
     t.string   "image"
     t.string   "info_from"
     t.string   "city"
-    t.string   "state"
+    t.integer  "state",            limit: 255
   end
 
   create_table "users", force: true do |t|

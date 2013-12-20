@@ -23,6 +23,7 @@ gem 'rmagick'
 gem 'hashie'
 gem 'pg'
 gem 'state_machine'
+gem 'rails_12factor'
 
 group :development do
   gem 'better_errors'

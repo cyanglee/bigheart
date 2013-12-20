@@ -5,11 +5,11 @@ development:
   <<: *defaults
 # admin info
   admin_name: 'marcus'
-  admin_email: 'marcuslin0724@gmail.com'
-  admin_password: '11111111'
+  admin_email: 'bigheart.marcus@gmail.com'
+  admin_password: 'marcus0972'
 # admin email
-  mail_ad: marcuslin0724@gmail.com
-  mail_pw: 0972968663
+  mail_ad: bigheart.marcus@gmail.com
+  mail_pw: marcuslin0972
 # facebook
   app_id: '250816725069932'
   secret: '2acfc3ef37cb06125208f083d1dad765'
@@ -21,11 +21,11 @@ production:
   <<: *defaults
 # admin info
   admin_name: 'marcus'
-  admin_email: 'marcuslin0724@gmail.com'
+  admin_email: 'bigheart.marcus@gmail.com'
   admin_password: '11111111'
 # admin email
-  mail_ad: marcuslin0724@gmail.com
-  mail_pw: 0972968663
+  mail_ad: bigheart.marcus@gmail.com
+  mail_pw: marcuslin0972
 # facebook
   app_id: '250816725069932'
   secret: '2acfc3ef37cb06125208f083d1dad765'

@@ -11,7 +11,8 @@ puts 'ROLES'
   puts 'role: ' << role
 end
 puts 'DEFAULT USERS'
-user = User.find_or_create_by_email :name => Settings.admin_name.dup, :email => Settings.admin_email.dup, :password => Settings.admin_password.dup, :password_confirmation => Settings.admin_password.dup
+user = User.new :name => Settings.admin_name.dup, :email => Settings.admin_email.dup, :password => Settings.admin_password.dup, :password_confirmation => Settings.admin_password.dup
 puts 'user: ' << user.name
-user.confirm!
+user.skip_confirmation!
+user.save
 user.add_role :admin
