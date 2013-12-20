@@ -30,6 +30,10 @@ class Story < ActiveRecord::Base
     #  transition [:edited, :pending, :rejected, :published] => :edited
     #end
 
+    event :pending do
+      transition [:published, :rejected] => :pending
+    end
+
     event :rejected do
       transition :pending => :rejected
     end
