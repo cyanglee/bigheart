@@ -16,25 +16,11 @@ class StoriesController < ApplicationController
   end
 
   def create
-    # TODO: create a validation for story_name
-
-    #story_info = params[:story]
-    #@story = Story.where(story_name: story_info["story_name"]).first_or_create! do |s|
-    #  s.appear_time_from = story_info["appear_time_from"]
-    #  s.appear_time_to = story_info["appear_time_to"]
-    #  s.appear_day = story_info["appear_day"]
-    #  s.appear_location = story_info["appear_location"]
-    #  s.story_details = story_info["story_details"]
-    #  s.user_id = current_user.id
-    #  s.image = story_info[:image]
-    #  s.info_from = story_info["info_from"]
-    #  s.city = story_info["city"]
-    #end
     story = Story.new(story_params)
     if story.valid?
       story.user_id = current_user.id
       story.save
-      redirect_to stories_path, notice: '123'
+      redirect_to stories_path, notice: '故事將於審查後發佈.'
     else
       render action: 'new'
     end
