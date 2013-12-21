@@ -1,6 +1,6 @@
 class StoriesController < ApplicationController
   before_action :check_user_id, only: [:edit, :destroy]
-  before_action :check_post_permit, only: :new
+  #before_action :check_post_permit, only: :new
 
   def index
     # TODO: change the hardcoded value to reference
@@ -76,9 +76,9 @@ private
     end
   end
 
-  def check_post_permit
-    if user_signed_in? == false
-      raise 'plz sign in or sign up'
-    end
-  end
+  #def check_post_permit
+  #  if user_signed_in? == false
+  #    raise 'plz sign in or sign up'
+  #  end
+  #end
 end
