@@ -1,5 +1,7 @@
 class Story < ActiveRecord::Base
 
+  attr_accessor :report_text
+
   validates :story_name, uniqueness: true
 
   STATES = Hashie::Mash.new(

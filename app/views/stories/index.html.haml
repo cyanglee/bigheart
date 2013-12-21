@@ -2,55 +2,54 @@
 - if cookies[:site] == nil
   - cookies.permanent[:site] = {value: "bigheart"}
   = render 'stories/slogan'
-- else
-  .btn-group
-    %button.btn.btn-default{type: "button"} 選擇查看地區
-    %button.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown", type: "button"}
-      %span.caret
-      %span.sr-only
-    %ul#filters_city.dropdown-menu{role: "menu"}
-      %li
-        %a{href: "#", "data-filter" => "*"} 查看全部
-      %li
-        %a{href: "#", "data-filter" => ".基隆市"} 基隆市
-      %li
-        %a{href: "#", "data-filter" => ".臺北市"} 臺北市
-      %li
-        %a{href: "#", "data-filter" => ".新北市"} 新北市
-      %li
-        %a{href: "#", "data-filter" => ".桃園縣"} 桃園縣
-      %li
-        %a{href: "#", "data-filter" => ".新竹縣"} 新竹縣
-      %li
-        %a{href: "#", "data-filter" => ".新竹市"} 新竹市
-      %li
-        %a{href: "#", "data-filter" => ".苗栗縣"} 苗栗縣
-      %li
-        %a{href: "#", "data-filter" => ".臺中市"} 臺中市
-      %li
-        %a{href: "#", "data-filter" => ".彰化縣"} 彰化縣
-      %li
-        %a{href: "#", "data-filter" => ".南投縣"} 南投縣
-      %li
-        %a{href: "#", "data-filter" => ".雲林縣"} 雲林縣
-      %li
-        %a{href: "#", "data-filter" => ".嘉義縣"} 嘉義縣
-      %li
-        %a{href: "#", "data-filter" => ".嘉義市"} 嘉義市
-      %li
-        %a{href: "#", "data-filter" => ".臺南市"} 臺南市
-      %li
-        %a{href: "#", "data-filter" => ".高雄市"} 高雄市
-      %li
-        %a{href: "#", "data-filter" => ".屏東縣"} 屏東縣
-  #stories
-    - @stories.each do |s|
-      .story{class: s.city}
-        = image_tag s.image_url(:thumb).to_s
-        %h3 #{s.story_name}
-        %strong #{s.city} #{s.appear_location}
-        %p
-          %strong #{s.appear_time_from} - #{s.appear_time_to}
-        %p #{truncate(word_wrap(s.story_details, line_width: 10), length: 50)}
-        %a.btn.btn-primary{href: "/stories/#{s.id}", role: "button"} 繼續閱讀 »
-        -#.fb-like{"data-action" => "like", "data-href" => "0.0.0.0:3000/stories/#{s.id}", "data-layout" => "button_count", "data-share" => "true", "data-show-faces" => "true"}
+.btn-group
+  %button.btn.btn-default{type: "button"} 選擇查看地區
+  %button.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown", type: "button"}
+    %span.caret
+    %span.sr-only
+  %ul#filters_city.dropdown-menu{role: "menu"}
+    %li
+      %a{href: "#", "data-filter" => "*"} 查看全部
+    %li
+      %a{href: "#", "data-filter" => ".基隆市"} 基隆市
+    %li
+      %a{href: "#", "data-filter" => ".臺北市"} 臺北市
+    %li
+      %a{href: "#", "data-filter" => ".新北市"} 新北市
+    %li
+      %a{href: "#", "data-filter" => ".桃園縣"} 桃園縣
+    %li
+      %a{href: "#", "data-filter" => ".新竹縣"} 新竹縣
+    %li
+      %a{href: "#", "data-filter" => ".新竹市"} 新竹市
+    %li
+      %a{href: "#", "data-filter" => ".苗栗縣"} 苗栗縣
+    %li
+      %a{href: "#", "data-filter" => ".臺中市"} 臺中市
+    %li
+      %a{href: "#", "data-filter" => ".彰化縣"} 彰化縣
+    %li
+      %a{href: "#", "data-filter" => ".南投縣"} 南投縣
+    %li
+      %a{href: "#", "data-filter" => ".雲林縣"} 雲林縣
+    %li
+      %a{href: "#", "data-filter" => ".嘉義縣"} 嘉義縣
+    %li
+      %a{href: "#", "data-filter" => ".嘉義市"} 嘉義市
+    %li
+      %a{href: "#", "data-filter" => ".臺南市"} 臺南市
+    %li
+      %a{href: "#", "data-filter" => ".高雄市"} 高雄市
+    %li
+      %a{href: "#", "data-filter" => ".屏東縣"} 屏東縣
+#stories
+  - @stories.each do |s|
+    .story{class: s.city}
+      = image_tag s.image_url(:thumb).to_s
+      %h3 #{s.story_name}
+      %strong #{s.city} #{s.appear_location}
+      %p
+        %strong #{s.appear_time_from} - #{s.appear_time_to}
+      %p #{truncate(word_wrap(s.story_details, line_width: 10), length: 50)}
+      %a.btn.btn-primary{href: "/stories/#{s.id}", role: "button"} 繼續閱讀 »
+      -#.fb-like{"data-action" => "like", "data-href" => "0.0.0.0:3000/stories/#{s.id}", "data-layout" => "button_count", "data-share" => "true", "data-show-faces" => "true"}

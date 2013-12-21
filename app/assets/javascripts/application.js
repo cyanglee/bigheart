@@ -89,5 +89,5 @@ $(function() {
 });
 
 $(window).load(function(){
-    $('#myModal').modal('show');
+    $('#slogan').modal('show');
 });

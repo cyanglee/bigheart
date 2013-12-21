@@ -10,3 +10,6 @@
   .story_details
     = simple_format(@story.story_details)
     = '資訊來源: ' "#{@story.info_from}"
+%p
+  %a.btn.btn-primary{"data-toggle" => "modal", :href => "#feedback"} 回報故事內容
+  = render 'stories/feedback'
