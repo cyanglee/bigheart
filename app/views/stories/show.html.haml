@@ -1,15 +1,19 @@
-%h1
-  = @story.story_name + '的故事'
-%p
-  = image_tag @story.image_url(:show).to_s
-%p
-  = '地點: ' "#{@story.city} #{@story.appear_location}"
-%p
-  = '時段: ' "#{@story.appear_day} #{@story.appear_time_from} - #{@story.appear_time_to}"
-%p
-  .story_details
-    = simple_format(@story.story_details)
-    = '資訊來源: ' "#{@story.info_from}"
-%p
-  %a.btn.btn-primary{"data-toggle" => "modal", :href => "#feedback"} 回報故事內容
-  = render 'stories/feedback'
+#show_story
+  %h1
+    %strong
+      = @story.story_name + '的故事'
+  %p
+    = image_tag @story.image_url(:show).to_s
+  %p
+    %strong.story_highlight
+      = '地點: ' "#{@story.city} #{@story.appear_location}"
+  %p
+    %strong.story_highlight
+      = '時段: ' "#{@story.appear_day} #{@story.appear_time_from} - #{@story.appear_time_to}"
+  %p
+    .story_details
+      = simple_format(@story.story_details)
+      = '資訊來源: ' "#{@story.info_from}"
+  %p
+    %a.btn.btn-primary{"data-toggle" => "modal", :href => "#feedback"} 回報故事內容
+    = render 'stories/feedback'
