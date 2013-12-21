@@ -4,16 +4,17 @@
     %thead
       %tr
         %th 故事名稱
-        %th 發佈人
+        %th 發佈人聯絡信箱
         %th 目前狀態
         %th
     %tbody
       - @stories.each do |story|
-        - user = User.where(id: story.user_id)[0]
+        -#- user = User.where(id: story.user_id)[0]
         -#- binding.pry
         %tr
           %td= link_to story.story_name, story_path(story.id)
-          %td= user.name
+          -#%td= user.name
+          %td= story.contact_email
           %td= Story::TRANS_STATES[story.state]
           %td
             %a.btn.btn-primary{"data-toggle" => "modal", :href => "#state-options-#{story.id}", :type => "button"} 變更狀態

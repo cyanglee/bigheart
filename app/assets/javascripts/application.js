@@ -81,7 +81,7 @@ $(function() {
         });
     });
 
-    $('#filters_city option').click(function(){
+    $('#filters_city a').click(function(){
         var selector = $(this).attr('data-filter');
         $('#stories').isotope({ filter: selector });
     });

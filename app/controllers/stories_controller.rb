@@ -18,7 +18,7 @@ class StoriesController < ApplicationController
   def create
     story = Story.new(story_params)
     if story.valid?
-      story.user_id = current_user.id
+      #story.user_id = current_user.id
       story.save
       redirect_to stories_path, notice: '故事將於審查後發佈.'
     else
@@ -66,7 +66,7 @@ class StoriesController < ApplicationController
 
 private
   def story_params
-    params.require(:story).permit(:story_name, :appear_day, :appear_time_from, :appear_time_to, :city, :appear_location, :info_from, :story_details, :image)
+    params.require(:story).permit(:story_name, :appear_day, :appear_time_from, :appear_time_to, :city, :appear_location, :info_from, :story_details, :image, :contact_email)
   end
 
   def check_user_id
