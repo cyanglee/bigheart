@@ -5,6 +5,7 @@ class StoriesController < ApplicationController
   def index
     # TODO: change the hardcoded value to reference
       @stories = Story.where(state: Story::STATES.published)
+      binding.pry
   end
 
   def show
