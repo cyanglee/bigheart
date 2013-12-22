@@ -1,11 +1,7 @@
 class StoriesController < ApplicationController
-  before_action :check_user_id, only: [:edit, :destroy]
-  #before_action :check_post_permit, only: :new
-
   def index
     # TODO: change the hardcoded value to reference
       @stories = Story.where(state: Story::STATES.published)
-      binding.pry
   end
 
   def show
@@ -29,6 +25,7 @@ class StoriesController < ApplicationController
 
   def edit
     @story = Story.find(params[:id])
+    authorize! :update, @story
   end
 
   def update
@@ -43,6 +40,7 @@ class StoriesController < ApplicationController
 
   def manage_stories
     @stories = Story.all
+    authorize! :manage_stories, Story
   end
 
   def update_state
@@ -60,11 +58,11 @@ class StoriesController < ApplicationController
 
   def feedback
     @story = Story.find(params[:id])
-    #binding.pry
     User.all.each do |user|
       if user.has_role? :admin
         FeedbackMailer.feedback(user.email, @story.story_name, params[:story][:report_reason], params[:story][:report_text]).deliver
       end
+      flash[:notice] = "已提交回報資訊予管理員"
     end
 
     redirect_to story_path(params[:id])
@@ -74,24 +72,11 @@ class StoriesController < ApplicationController
     story = Story.find(params[:id])
     story.destroy
 
-    redirect_to stories_user_path(current_user.id)
+    redirect_to manage_stories_path
   end
 
 private
   def story_params
     params.require(:story).permit(:story_name, :appear_day, :appear_time_from, :appear_time_to, :city, :appear_location, :info_from, :story_details, :image, :contact_email)
   end
-
-  def check_user_id
-    story = Story.find(params[:id])
-    if story.user_id != current_user.id
-      raise "you're not able to edit this story"
-    end
-  end
-
-  #def check_post_permit
-  #  if user_signed_in? == false
-  #    raise 'plz sign in or sign up'
-  #  end
-  #end
 end

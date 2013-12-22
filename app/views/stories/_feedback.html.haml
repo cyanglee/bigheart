@@ -4,7 +4,7 @@
       = simple_form_for :story, :html => {:class => 'form-horizontal' }, :url => url_for(:action => 'feedback', :controller => 'stories') do |f|
         .modal-header
           %a.close{"data-dismiss" => "modal"} ×
-          %h3.modal-title feed back
+          %h3.modal-title 回報故事
         .modal-body
           .radio
             %label
@@ -21,5 +21,5 @@
           .form-group
             = f.input :report_text, label: "其他或建議", :input_html => {class: "form-control", :rows => "8", :col => "30"}, as: :text, class: "form-control input-lg", type: "text"
         .modal-footer
-          %button.btn.btn-default{"data-dismiss" => "modal", type: "button"} Close
-          = f.submit "confirm", class: "btn btn-primary"
+          %button.btn.btn-default{"data-dismiss" => "modal", type: "button"} 關閉
+          = f.submit "送出回報資訊", class: "btn btn-primary"
