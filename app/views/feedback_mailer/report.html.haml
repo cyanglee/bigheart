@@ -1,0 +1,10 @@
+-if @suggest.present? && @reason.present?
+  %p 一位使用者因#{@reason}回報了#{@story}的故事內容
+  %p 該使用者也提供了以下建議:
+  %p #{@suggest}
+-elsif @suggest.present? && @reason.nil?
+  %p 一位使用者因以下原因回報了#{@story}的故事內容
+  %p #{@suggest}
+-else
+  %p 一位使用者因#{@reason}回報了#{@story}的故事內容
+-#- binding.pry

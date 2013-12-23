@@ -8,6 +8,18 @@ class StoriesController < ApplicationController
     @story = Story.find(params[:id])
   end
 
+  def report
+    @story = Story.find(params[:id])
+    User.all.each do |user|
+      if user.has_role? :admin
+        FeedbackMailer.report(user.email, @story.story_name, params[:story][:report_reason], params[:story][:report_text]).deliver
+      end
+      flash[:notice] = "已提交回報資訊予管理員"
+    end
+
+    redirect_to story_path(params[:id])
+  end
+
   def new
     @story = Story.new
   end
@@ -54,18 +66,6 @@ class StoriesController < ApplicationController
     #  story.pending!
     #end
     redirect_to manage_stories_path
-  end
-
-  def feedback
-    @story = Story.find(params[:id])
-    User.all.each do |user|
-      if user.has_role? :admin
-        FeedbackMailer.feedback(user.email, @story.story_name, params[:story][:report_reason], params[:story][:report_text]).deliver
-      end
-      flash[:notice] = "已提交回報資訊予管理員"
-    end
-
-    redirect_to story_path(params[:id])
   end
 
   def destroy

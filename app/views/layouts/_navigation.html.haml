@@ -18,6 +18,8 @@
           = link_to '閱讀所有故事', stories_path
         %li
           = link_to '發表故事', new_story_path
+        %li
+          %a{"data-toggle" => "modal", :href => "#feedback"} 聯絡管理員
         - if user_signed_in?
           -#%li
           -#  = link_to '我所發表的故事', stories_user_path(current_user.id)
