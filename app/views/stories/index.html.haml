@@ -59,10 +59,10 @@
     .story{class: s.city}
       = image_tag s.image_url(:thumb).to_s
       %h3
-        %strong #{s.story_name}
+        %strong.story_title #{s.story_name}
       %strong.story_highlight #{s.city} #{s.appear_location}
       %p
         %strong.story_highlight #{s.appear_time_from} - #{s.appear_time_to}
-      %p #{truncate(word_wrap(s.story_details, line_width: 10), length: 50)}
+      %p.index.story_details #{truncate(word_wrap(s.story_details, line_width: 10), length: 50)}
       %a.btn.btn-primary{href: "/stories/#{s.id}", role: "button"} 繼續閱讀 »
       -#.fb-like{"data-action" => "like", "data-href" => "0.0.0.0:3000/stories/#{s.id}", "data-layout" => "button_count", "data-share" => "true", "data-show-faces" => "true"}

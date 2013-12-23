@@ -1,6 +1,6 @@
 #show_story
   %h1
-    %strong
+    %strong.story_title
       = @story.story_name + '的故事'
   %p
     = image_tag @story.image_url(:show).to_s
