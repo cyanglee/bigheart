@@ -11,8 +11,8 @@ defaults: &defaults
 development:
   <<: *defaults
 # facebook
-  app_id: '472511292859137'
-  secret: 'bb192c42c1120a7df8190abc62fb5b1a'
+#  app_id: '472511292859137'
+#  secret: 'bb192c42c1120a7df8190abc62fb5b1a'
 
 test:
   <<: *defaults
@@ -20,5 +20,5 @@ test:
 production:
   <<: *defaults
 # facebook
-  app_id: '250816725069932'
-  secret: '2acfc3ef37cb06125208f083d1dad765'
+#  app_id: '250816725069932'
+#  secret: '2acfc3ef37cb06125208f083d1dad765'

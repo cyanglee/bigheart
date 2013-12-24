@@ -23,7 +23,6 @@ gem 'carrierwave'
 gem 'rmagick'
 gem 'hashie'
 gem 'pg'
-gem 'font-awesome-sass'
 
 group :development do
   gem 'better_errors'
