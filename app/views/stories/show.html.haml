@@ -10,10 +10,11 @@
   %p
     %strong.story_highlight
       = '時段: ' "#{@story.appear_day} #{@story.appear_time_from} - #{@story.appear_time_to}"
+  %p.info_from
+    = '資訊來源: ' "#{@story.info_from}"
   %p
     .story_details
       = simple_format(@story.story_details)
-      = '資訊來源: ' "#{@story.info_from}"
   %p
     %a.fa.fa-exclamation-triangle.btn.btn-warning.btn-lg{"data-toggle" => "modal", :href => "#report"} 回報資訊錯誤
     = render 'stories/report'
