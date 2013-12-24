@@ -11,16 +11,4 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     stories_path
   end
-
-  def feedback
-    User.all.each do |user|
-      if user.has_role? :admin
-        FeedbackMailer.feedback(user.email, params[:feedback][:type], params[:feedback][:feedback_msg]).deliver
-      end
-      flash[:notice] = "已將建議或錯誤資訊提交予管理員"
-    end
-
-    redirect_to story_path(params[:id])
-  end
-
 end

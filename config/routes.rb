@@ -12,15 +12,10 @@ Bigheart::Application.routes.draw do
     end
     member do
       get 'update_state', to: 'stories#update_state'
-      post 'report'
     end
   end
 
-  resources :application do
-    collection do
-      post 'feedback'
-    end
-  end
+  post 'send_mail/report'
 
   root :to => "stories#index"
 end

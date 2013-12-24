@@ -1,23 +1,19 @@
 class StoriesController < ApplicationController
+  #before_action :show, :check_state
+
   def index
     # TODO: change the hardcoded value to reference
       @stories = Story.where(state: Story::STATES.published)
   end
 
   def show
-    @story = Story.find(params[:id])
-  end
-
-  def report
-    @story = Story.find(params[:id])
-    User.all.each do |user|
-      if user.has_role? :admin
-        FeedbackMailer.report(user.email, @story.story_name, params[:story][:report_reason], params[:story][:report_text]).deliver
-      end
-      flash[:notice] = "已提交回報資訊予管理員"
+    story = Story.where(id: params[:id], state: 2).first
+    if story.nil?
+      flash[:alert] = "這篇文章尚未通過審核!!"
+      redirect_to root_path
+    else
+      @story = story
     end
-
-    redirect_to story_path(params[:id])
   end
 
   def new
@@ -43,7 +39,7 @@ class StoriesController < ApplicationController
   def update
     @story = Story.find(params[:id])
     if @story.update_attributes(story_params)
-      @story.pending!
+      @story.published!
       redirect_to stories_path, notice: '成功編輯故事.'
     else
       render action: 'edit'
@@ -65,7 +61,7 @@ class StoriesController < ApplicationController
     #elsif params[:story][:state] == 'pending'
     #  story.pending!
     #end
-    redirect_to manage_stories_path
+    redirect_to manage_stories_path, notice: "已變更狀態為#{Story::TRANS_STATES[story.state]}"
   end
 
   def destroy

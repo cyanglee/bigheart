@@ -4,8 +4,8 @@
       .modal-content
         = simple_form_for story, :url => update_state_story_path(story.id), :html => {method: 'get', :class => 'form-horizontal' } do |f|
           .modal-header
-            %a.close{"data-dismiss" => "modal"} ×
-            %h3.modal-title Change State
+            %a.close{"data-dismiss" => "modal"} ✖︎
+            %h3.modal-title 變更狀態
           .modal-body
             - state = story.state_events
             = f.input :state, :collection => state, :as => :radio_buttons, :label => false, :item_wrapper_class => 'inline'

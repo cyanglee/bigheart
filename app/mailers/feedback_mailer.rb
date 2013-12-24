@@ -1,16 +1,14 @@
 class FeedbackMailer < ActionMailer::Base
   default :from => Settings.admin_email.dup
 
-  def report(email, story, reason, suggest)
+  def send_report(email, story = nil, type, msg)
     @story = story
-    @reason = reason
-    @suggest = suggest
-    mail(:to => email, :subject => "[故事資訊回報]#{story}")
-  end
-
-  def feedback(email, feedback_type, feedback_msg)
-    @type = feedback_type
-    @msg = feedback_msg
-    mail(:to => email, :subject => "[#{feedback_type}]")
+    @type = type
+    @msg = msg
+    if story.nil?
+      mail(:to => email, :subject => "[#{type}]")
+    else
+      mail(:to => email, :subject => "[故事資訊回報]#{story}")
+    end
   end
 end

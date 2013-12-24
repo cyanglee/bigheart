@@ -17,7 +17,7 @@
       .form-group
         = f.input :appear_time_to, label: false, :input_html => {class: "form-control"}, class: "time", collection: ["1:00","2:00","3:00","4:00","5:00","6:00","7:00","8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00"], selected: "#{@story.appear_time_to}", include_blank: "不確定"
   .form-group
-    = f.input :city, label: "地點", :input_html => {class: "form-control"}, class: "city", collection: ["基隆市","臺北市","新北市","桃園縣","新竹縣","新竹市","苗栗縣","臺中市","彰化縣","南投縣","雲林縣","嘉義縣","嘉義市","臺南市","高雄市","屏東縣"], selected: "#{@story.city}"
+    = f.input :city, label: "地點", :input_html => {class: "form-control"}, class: "city", collection: Story::CITIES.keys, selected: "#{@story.city}", include_blank: "不確定"
   .form-group
     = f.input :appear_location, label:false, :input_html => {class: "form-control"}, type: "text", placeholder: "#{@story.appear_location}"
   .form-group

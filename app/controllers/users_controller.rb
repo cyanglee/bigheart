@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    authorize! :show, @user
     @user = User.find(params[:id])
   end
 
