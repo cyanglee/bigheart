@@ -15,5 +15,5 @@
       = simple_format(@story.story_details)
       = '資訊來源: ' "#{@story.info_from}"
   %p
-    %a.btn.btn-warning.btn-xs{"data-toggle" => "modal", :href => "#report"} 故事內容有誤
+    %a.fa.fa-exclamation-triangle.btn.btn-warning.btn-sm{"data-toggle" => "modal", :href => "#report"} 回報資訊錯誤
     = render 'stories/report'
