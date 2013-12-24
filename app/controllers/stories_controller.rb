@@ -32,8 +32,8 @@ class StoriesController < ApplicationController
   end
 
   def edit
-    @story = Story.find(params[:id])
     authorize! :update, @story
+    @story = Story.find(params[:id])
   end
 
   def update
@@ -47,11 +47,12 @@ class StoriesController < ApplicationController
   end
 
   def manage_stories
+    authorize! :manage_stories, @stories
     @stories = Story.all
-    authorize! :manage_stories, Story
   end
 
   def update_state
+    authorize! :manage_stories, Story
     story = Story.find(params[:id])
     story.send(params[:story][:state])
     #if params[:story][:state].to_sym == :published
@@ -65,6 +66,7 @@ class StoriesController < ApplicationController
   end
 
   def destroy
+    authorize! :manage_stories, Story
     story = Story.find(params[:id])
     story.destroy
 
