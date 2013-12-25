@@ -4,7 +4,8 @@
       = simple_form_for :report, :html => {:class => 'form-horizontal' }, :url => url_for(:action => 'report', :controller => 'send_mail') do |f|
         -story_name = Story.find(params[:id]).story_name
         .modal-header
-          %a.close{"data-dismiss" => "modal"} ✖︎
+          %a.close{"data-dismiss" => "modal"}
+            %i.fa.fa-times-circle
           %h3.modal-title 回報#{story_name}的資訊
         .modal-body
           = f.input :story_name, as: :hidden, :input_html => {value: story_name}

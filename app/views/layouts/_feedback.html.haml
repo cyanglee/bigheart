@@ -3,7 +3,8 @@
     .modal-content
       = simple_form_for :report, :html => {:class => 'form-horizontal' }, url: send_mail_report_path do |f|
         .modal-header
-          %a.close{"data-dismiss" => "modal"} ✖︎
+          %a.close{"data-dismiss" => "modal"}
+            %i.fa.fa-times-circle
           %h3.modal-title 聯絡管理員
         .modal-body
           .radio
