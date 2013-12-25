@@ -93,7 +93,7 @@ $(function() {
         });
     });
 
-
+    $(".alert").fadeOut(5000)
 });
 
 $(window).load(function(){

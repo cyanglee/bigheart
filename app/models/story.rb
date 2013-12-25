@@ -2,7 +2,10 @@ class Story < ActiveRecord::Base
 
   attr_accessor :report_text
 
-  validates :story_name, uniqueness: true
+  validates :appear_location, :contact_email, presence:true
+  validates :story_name, presence:true, uniqueness: true
+
+  serialize :appear_day
 
   STATES = Hashie::Mash.new(
       :pending => 0,

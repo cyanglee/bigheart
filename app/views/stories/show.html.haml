@@ -9,12 +9,16 @@
       = '地點: ' "#{@story.city} #{@story.appear_location}"
   %p
     %strong.story_highlight
-      = '時段: ' "#{@story.appear_day} #{@story.appear_time_from} - #{@story.appear_time_to}"
+      = '時段: '
+      - @story.appear_day.select{|d| d.present?}.each do |d|
+        = "#{d}"
+      - if @story.appear_time_from.present? || @story.appear_time_to.present?
+        = ", #{@story.appear_time_from} - #{@story.appear_time_to}"
   %p.info_from
     = '資訊來源: ' "#{@story.info_from}"
   %p
     .story_details
       = simple_format(@story.story_details)
   %p
-    %a.fa.fa-exclamation-triangle.btn.btn-warning.btn-lg{"data-toggle" => "modal", :href => "#report"} 回報故事資訊有誤
+    %a.fa.fa-exclamation-triangle.btn.btn-warning.btn-lg{"data-toggle" => "modal", :href => "#report"} 回報故事資訊錯誤
     = render 'stories/report'

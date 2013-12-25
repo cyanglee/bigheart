@@ -21,12 +21,14 @@ class StoriesController < ApplicationController
   end
 
   def create
-    story = Story.new(story_params)
-    if story.valid?
+    @story = Story.new(story_params)
+
+    if @story.valid?
       #story.user_id = current_user.id
-      story.save
-      redirect_to stories_path, notice: '故事將於審查後發佈.'
+      @story.save
+      redirect_to stories_path, notice: "故事將於審查後發佈."
     else
+      flash.now.alert = "請檢查您所輸入的資訊是否有誤!!"
       render action: 'new'
     end
   end
@@ -75,6 +77,6 @@ class StoriesController < ApplicationController
 
 private
   def story_params
-    params.require(:story).permit(:story_name, :appear_day, :appear_time_from, :appear_time_to, :city, :appear_location, :info_from, :story_details, :image, :contact_email)
+    params.require(:story).permit(:story_name, :appear_time_from, :appear_time_to, :city, :appear_location, :info_from, :story_details, :image, :contact_email, :appear_day => [])
   end
 end

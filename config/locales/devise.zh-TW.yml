@@ -56,3 +56,13 @@ zh-TW:
         subject: '重設密碼步驟'
       unlock_instructions:
         subject: '解鎖步驟'
+  activerecord:
+    errors:
+      models:
+        story:
+          attributes:
+            story_name:
+              blank: '故事名稱不能為空白'
+              taken: '故事名稱重複'
+            contact_email:
+              blank : '電子郵件不能為空白'
