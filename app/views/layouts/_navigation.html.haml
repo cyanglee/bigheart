@@ -7,7 +7,9 @@
         %span.icon-bar
         %span.icon-bar
       - if user_signed_in?
-        = link_to "Bigheart", stories_path, class: "navbar-brand"
+        %a.navbar-brand{href: stories_path}
+          Bigheart
+          %i.fa.fa-heart
       -else
         %a.navbar-brand{href: stories_path}
           Bigheart
