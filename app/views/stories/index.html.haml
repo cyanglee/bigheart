@@ -18,8 +18,8 @@
     .story{class: s.city}
       = image_tag s.image_url(:thumb).to_s
       %h3
-        %strong.story_title #{s.story_name}
-      %strong.story_highlight #{s.city} #{s.appear_location}
+        %strong.story_title [#{s.city}] #{s.story_name}
+      %strong.story_highlight #{s.appear_location}
       %p
         %strong.story_highlight
           時段:
