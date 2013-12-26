@@ -62,7 +62,13 @@ zh-TW:
         story:
           attributes:
             story_name:
-              blank: '故事名稱不能為空白'
+              blank: '故事名稱不能是空白'
               taken: '故事名稱重複'
             contact_email:
-              blank : '電子郵件不能為空白'
+              blank : '電子郵件不能是空白'
+            appear_location:
+              blank: '地點不能是空白'
+            info_from:
+              blank: '資訊來源不能是空白'
+            story_details:
+              blank: '故事內容不能是空白'

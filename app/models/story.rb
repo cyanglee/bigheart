@@ -2,7 +2,7 @@ class Story < ActiveRecord::Base
 
   attr_accessor :report_text
 
-  validates :appear_location, :contact_email, presence:true
+  validates :appear_location, :contact_email, :info_from, :story_details, presence:true
   validates :story_name, presence:true, uniqueness: true
 
   serialize :appear_day
