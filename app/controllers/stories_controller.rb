@@ -42,7 +42,7 @@ class StoriesController < ApplicationController
     @story = Story.find(params[:id])
     if @story.update_attributes(story_params)
       @story.published!
-      redirect_to stories_path, notice: '成功編輯故事.'
+      redirect_to manage_stories_path, notice: '成功編輯故事.'
     else
       render action: 'edit'
     end
