@@ -16,7 +16,11 @@
 #stories
   - @stories.each do |s|
     .story{class: s.city}
-      = image_tag s.image_url(:thumb).to_s
+      - if s.image.file.nil?
+        %i.fa.fa-times-circle.fa-5x.text-danger
+        目前無可用照片
+      -else
+        = image_tag s.image_url(:thumb).to_s
       %h3
         %strong.story_title [#{s.city}] #{s.story_name}
       %strong.story_highlight #{s.appear_location}

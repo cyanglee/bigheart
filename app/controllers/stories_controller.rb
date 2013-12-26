@@ -7,10 +7,14 @@ class StoriesController < ApplicationController
   end
 
   def show
-    story = Story.where(id: params[:id], state: 2).first
-    if story.nil?
-      flash[:alert] = "這篇文章尚未通過審核!!"
-      redirect_to root_path
+    story = Story.find(params[:id])
+    if story.id != 2
+      if user_signed_in? && current_user.has_role?(:admin)
+        @story = story
+      else
+        flash[:alert] = "這篇文章尚未通過審核!!"
+        redirect_to root_path
+      end
     else
       @story = story
     end

@@ -3,7 +3,11 @@
     %strong.story_title
       = @story.story_name + '的故事'
   %p
-    = image_tag @story.image_url(:show).to_s
+    - if @story.image.file.nil?
+      %i.fa.fa-times-circle.fa-5x.text-danger
+      目前無可用照片
+    -else
+      = image_tag @story.image_url(:show).to_s
   .fb-like{"data-action" => "like", "data-href" => "http://bigheart.herokuapp.com/stories/#{@story.id}", "data-layout" => "button", "data-share" => "true", "data-show-faces" => "false"}
   %p
     %strong.story_highlight
