@@ -15,7 +15,9 @@ describe Story do
       it 'should be an initial state' do
         @story_1.should be_pending
       end
+    end
 
+    describe 'published' do
       it 'should be able to transfer to published at any state' do
         @story_1.published!
         @story_1.should be_published
@@ -24,14 +26,18 @@ describe Story do
         @story_3.published!
         @story_3.should be_published
       end
+    end
 
+    describe 'rejected' do
       it 'should be able to transfer to rejected while pending and published' do
         @story_1.rejected!
         @story_1.should be_rejected
         @story_2.rejected!
         @story_2.should be_rejected
       end
+    end
 
+    describe 'pending' do
       it 'should be able to transfer to pending while published and rejected' do
         @story_2.pending!
         @story_2.should be_pending
