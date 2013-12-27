@@ -16,7 +16,8 @@ development:
 
 test:
   <<: *defaults
-
+  app_id: '472511292859137'
+  secret: 'bb192c42c1120a7df8190abc62fb5b1a'
 production:
   <<: *defaults
 # facebook

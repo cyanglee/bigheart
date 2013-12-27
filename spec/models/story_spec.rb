@@ -1,5 +1,7 @@
 require 'spec_helper'
 
 describe Story do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "should have story name" do
+    build(:stories, story_name: "").should_not_be_valid
+  end
 end
