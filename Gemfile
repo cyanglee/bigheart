@@ -36,14 +36,14 @@ group :development do
   gem 'rb-fchange', :require=>false
   gem 'rb-fsevent', :require=>false
   gem 'rb-inotify', :require=>false
-  gem 'pry', "0.9.12.4"
+  gem 'pry', "~> 0.9.12.4"
   gem 'pry-rails', "~> 0.3.2"
-  gem 'state_machine'
   gem 'coderay'
 end
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails','~> 3.0.0.beta'
+  gem 'state_machine'
 end
 group :test do
   gem 'capybara'
