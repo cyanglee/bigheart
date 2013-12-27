@@ -8,7 +8,7 @@ class StoriesController < ApplicationController
 
   def show
     story = Story.find(params[:id])
-    if story.id != 2
+    if story.state != 2
       if user_signed_in? && current_user.has_role?(:admin)
         @story = story
       else
