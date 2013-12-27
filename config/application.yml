@@ -5,8 +5,8 @@ defaults: &defaults
     admin_email: 'bigheart.marcus@gmail.com'
     admin_password: 'marcus0972'
   # admin email
-    mail_ad: marcuslin0724@gmail.com
-    mail_pw: 0972968663
+    mail_ad: bigheart.marcus@gmail.com
+    mail_pw: bigheartmarcuskuan
 
 development:
   <<: *defaults
