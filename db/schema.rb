@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131220072156) do
+ActiveRecord::Schema.define(version: 20131225113547) do
 
   create_table "roles", force: true do |t|
     t.string   "name"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20131220072156) do
   add_index "roles", ["name"], name: "index_roles_on_name"
 
   create_table "stories", force: true do |t|
-    t.string   "appear_day"
+    t.text     "appear_day",       limit: 255
     t.string   "appear_time_from"
     t.string   "appear_location"
     t.string   "story_details",    limit: 10000
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20131220072156) do
     t.string   "info_from"
     t.string   "city"
     t.integer  "state",            limit: 255
+    t.string   "contact_email"
   end
 
   create_table "users", force: true do |t|

@@ -1,52 +1,36 @@
 -#.row
+- if cookies[:site] == nil
+  - cookies.permanent[:site] = {value: "bigheart"}
+  = render 'stories/slogan'
 .btn-group
-  %button.btn.btn-default{type: "button"} 選擇查看地區
+  %button.select_city.btn.btn-default{type: "button"} 選擇查看地區
   %button.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown", type: "button"}
     %span.caret
     %span.sr-only
   %ul#filters_city.dropdown-menu{role: "menu"}
     %li
       %a{href: "#", "data-filter" => "*"} 查看全部
-    %li
-      %a{href: "#", "data-filter" => ".基隆市"} 基隆市
-    %li
-      %a{href: "#", "data-filter" => ".臺北市"} 臺北市
-    %li
-      %a{href: "#", "data-filter" => ".新北市"} 新北市
-    %li
-      %a{href: "#", "data-filter" => ".桃園縣"} 桃園縣
-    %li
-      %a{href: "#", "data-filter" => ".新竹縣"} 新竹縣
-    %li
-      %a{href: "#", "data-filter" => ".新竹市"} 新竹市
-    %li
-      %a{href: "#", "data-filter" => ".苗栗縣"} 苗栗縣
-    %li
-      %a{href: "#", "data-filter" => ".臺中市"} 臺中市
-    %li
-      %a{href: "#", "data-filter" => ".彰化縣"} 彰化縣
-    %li
-      %a{href: "#", "data-filter" => ".南投縣"} 南投縣
-    %li
-      %a{href: "#", "data-filter" => ".雲林縣"} 雲林縣
-    %li
-      %a{href: "#", "data-filter" => ".嘉義縣"} 嘉義縣
-    %li
-      %a{href: "#", "data-filter" => ".嘉義市"} 嘉義市
-    %li
-      %a{href: "#", "data-filter" => ".臺南市"} 臺南市
-    %li
-      %a{href: "#", "data-filter" => ".高雄市"} 高雄市
-    %li
-      %a{href: "#", "data-filter" => ".屏東縣"} 屏東縣
+    - Story::CITIES.each do |city, city_class|
+      %li
+        %a{href: "#", "data-filter" => "#{city_class}"} #{city}
 #stories
   - @stories.each do |s|
     .story{class: s.city}
-      = image_tag s.image_url(:thumb).to_s
-      %h3 #{s.story_name}
-      %strong #{s.city} #{s.appear_location}
+      - if s.image.file.nil?
+        %i.fa.fa-times-circle.fa-5x.text-danger
+        目前無可用照片
+      -else
+        = image_tag s.image_url(:thumb).to_s
+      %h3
+        %strong.story_title [#{s.city}] #{s.story_name}
+      %strong.story_highlight #{s.appear_location}
       %p
-        %strong #{s.appear_time_from} - #{s.appear_time_to}
-      %p #{truncate(word_wrap(s.story_details, line_width: 10), length: 50)}
+        %strong.story_highlight
+          時段:
+          - s.appear_day.select{|d| d.present?}.each do |d|
+            = "#{d}"
+          %p
+            - if s.appear_time_from.present? || s.appear_time_to.present?
+              = "#{s.appear_time_from} - #{s.appear_time_to}"
+      %p.index.story_details #{truncate(word_wrap(s.story_details, line_width: 10), length: 50)}
       %a.btn.btn-primary{href: "/stories/#{s.id}", role: "button"} 繼續閱讀 »
-      -#.fb-like{"data-action" => "like", "data-href" => "0.0.0.0:3000/stories/#{s.id}", "data-layout" => "button_count", "data-share" => "true", "data-show-faces" => "true"}

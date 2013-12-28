@@ -78,8 +78,8 @@ Bigheart::Application.configure do
     #domain: ENV["DOMAIN_NAME"],
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: Settings.mail_ad.dup,
-    password: Settings.mail_pw.dup
+    user_name: ENV['mail_ad'],
+    password: ENV['mail_pw']
   }
 
 

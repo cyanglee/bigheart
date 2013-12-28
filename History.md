@@ -1,4 +1,46 @@
 
+0.1.2 / 2013-12-28 
+==================
+
+ * add sensitve info in to gitignore
+ * Merge branch 'feature/testing_story_curd_and_state_machine' into develop
+ * fix story show
+ * fix a bit of state machine test
+ * write test for story
+ * update rspec and coderay
+ * fix admin read unpublished story, add no image icon
+ * redirect to manage story page after edit
+ * set info from and story details to required
+ * add facebook share and like button
+ * change a bit of new story page ui
+ * redesign appear day, add notification, set location as required in create and edit story
+ * change font size in navbar, close #31
+ * fix i18n warning
+ * change a little bit of ui
+ * add more discription to readme file
+ * add discription in readme file
+ * update readme
+ * fix facebook app and secret
+ * move story info from and resize report button in show story page
+ * disable user register
+ * try to add awsome font
+ * use cancan on both users and stories controller
+ * sending email to admin fixed
+ * add feedback or report bug to navbar
+ * redesign report story button
+ * change navbar Bighert font style
+ * fix index and show story page text size
+ * add create story to seed
+ * add admin edit story, use cancan for authorize, fix file for deploy
+ * fix coderay errors by changing pry version
+ * fix story show and index font size, close #22
+ * add sign out btn to navbar for admin sign out
+ * create feedback mailer, close #23
+ * fix create story, close #24
+ * only show pop up modal when first time using, closes #21
+ * redesign navbar add modal, closes #19, closes #20
+ * Merge branch 'release/0.1.1' into develop
+
 0.1.1 / 2013-12-20 
 ==================
 

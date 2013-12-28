@@ -86,4 +86,16 @@ $(function() {
         $('#stories').isotope({ filter: selector });
     });
 
+    $(".send_mail").click(function(){
+        $('#report').modal('hide');
+        $('#feedback').modal('hide');
+        $.post('/send_mail/report', function(){
+        });
+    });
+
+    $(".alert").fadeOut(5000)
+});
+
+$(window).load(function(){
+    $('#slogan').modal('show');
 });

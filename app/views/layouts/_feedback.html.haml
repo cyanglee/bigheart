@@ -1,0 +1,22 @@
+.modal.fade{:id => "feedback", :style => "display: none;"}
+  .modal-dialog
+    .modal-content
+      = simple_form_for :report, :html => {:class => 'form-horizontal' }, url: send_mail_report_path do |f|
+        .modal-header
+          %a.close{"data-dismiss" => "modal"}
+            %i.fa.fa-times-circle
+          %h3.modal-title 聯絡管理員
+        .modal-body
+          .radio
+            %label
+              = f.input :type, label: false, :input_html => {type: "radio", value: "提供建議"}
+              提供建議
+          .radio
+            %label
+              = f.input :type, label: false, :input_html => {type: "radio", value: "錯誤回報"}
+              錯誤回報
+          .form-group
+            = f.input :report_msg, label: "建議或錯誤資訊", :input_html => {class: "form-control", :rows => "8", :col => "30"}, as: :text, class: "form-control input-lg", type: "text", :required => true
+        .modal-footer
+          %button.btn.btn-default{"data-dismiss" => "modal", type: "button"} 關閉
+          %button.send_mail.btn.btn-primary{:action => 'report', :controller => 'send_mail'} 提交訊息

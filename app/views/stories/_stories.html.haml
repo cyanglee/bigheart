@@ -1,32 +1,40 @@
 -#-*- encoding : utf-8 -*-
-= simple_form_for @story, :html => {:class => 'form-vertical', role: "form"} do |f|
-  .form-group
-    = f.input :story_name, label: "故事標題", :required => true, :input_html => {class: "form-control"}, placeholder: "#{@story.story_name}"
-  .form-group
-    = f.input :appear_day, label: "時段", :input_html => {class: "form-control"}, class: "date", collection: ["星期一","星期二","星期三","星期四","星期五","星期六","星期日", "週一至週日"], selected: "#{@story.appear_day}", include_blank: "不確定"
-  .form-group
-    .form-inline
-      .form-group
-        於
-      .form-group
-        = f.input :appear_time_from, label: false, :input_html => {class: "form-control"}, class: "time", collection: ["1:00","2:00","3:00","4:00","5:00","6:00","7:00","8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00"], selected: "#{@story.appear_time_from}", include_blank: "不確定"
-      .form-group
-        至
-      .form-group
-        = f.input :appear_time_to, label: false, :input_html => {class: "form-control"}, class: "time", collection: ["1:00","2:00","3:00","4:00","5:00","6:00","7:00","8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00"], selected: "#{@story.appear_time_to}", include_blank: "不確定"
-  .form-group
-    = f.input :city, label: "地點", :input_html => {class: "form-control"}, class: "city", collection: ["基隆市","臺北市","新北市","桃園縣","新竹縣","新竹市","苗栗縣","臺中市","彰化縣","南投縣","雲林縣","嘉義縣","嘉義市","臺南市","高雄市","屏東縣"], selected: "#{@story.city}"
-  .form-group
-    = f.input :appear_location, label:false, :input_html => {class: "form-control"}, type: "text", placeholder: "#{@story.appear_location}"
-  .form-group
-    = f.input :info_from, label: "資訊來源", :input_html => {class: "form-control"}
-  .form-group
-    = f.input :story_details, label: "故事內容", :input_html => {class: "form-control", :rows => "8", :col => "30"}, as: :text, class: "form-control input-lg", type: "text", placeholder: "#{@story.story_details}"
-  .form-group
-    = f.input :image, as: :file, label: "上傳照片"
-  - if action_name == 'edit'
+%h4
+  %strong
+    %i.fa.fa-exclamation-circle.fa-lg
+    提供故事後仍需經過管理員審查才會發佈到故事列表中，* 為必填資訊
+%p
+  = simple_form_for @story, :html => {:class => 'form-vertical', role: "form"} do |f|
     .form-group
-      = f.button :submit, "完成編輯", class: "btn btn-primary"
-  - if action_name == 'new'
+      = f.input :story_name, label: "故事標題", :input_html => {class: "form-control"}, placeholder: "#{@story.story_name}", :required => true
     .form-group
-      = f.button :submit, "發表故事", class: "btn btn-primary", role: "button"
+      = f.input :contact_email, label: "聯絡信箱", :input_html => {class: "form-control"}, hint: "若提供的故事遭其他使用者回報資訊錯誤管理員會以此信箱聯絡您詢問較正確的資訊以利修正",placeholder: "您的電子郵件", :required => true
+    .form-group.appear_day
+      = f.input :appear_day, label: "時段", as: :check_boxes, collection: ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期天", "週一至週日", "不確定"]
+    .form-group
+      .form-inline
+        .form-group
+          於
+        .form-group
+          = f.input :appear_time_from, label: false, :input_html => {class: "form-control"}, class: "time", collection: ["1:00","2:00","3:00","4:00","5:00","6:00","7:00","8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00"], selected: "#{@story.appear_time_from}", include_blank: "不確定"
+        .form-group
+          至
+        .form-group
+          = f.input :appear_time_to, label: false, :input_html => {class: "form-control"}, class: "time", collection: ["1:00","2:00","3:00","4:00","5:00","6:00","7:00","8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00"], selected: "#{@story.appear_time_to}", include_blank: "不確定"
+      = "範例: 於 11:00 至 17:00"
+    .form-group
+      = f.input :city, label: "縣市", :input_html => {class: "form-control"}, class: "city", collection: Story::CITIES.keys, selected: "#{@story.city}"
+    .form-group
+      = f.input :appear_location, label: "地點", :input_html => {class: "form-control"}, type: "text", placeholder: "#{@story.appear_location}", :required => true
+    .form-group
+      = f.input :info_from, label: "資訊來源", :input_html => {class: "form-control"}, :required => true
+    .form-group
+      = f.input :story_details, label: "故事內容", :input_html => {class: "form-control", :rows => "8", :col => "30"}, as: :text, class: "form-control input-lg", type: "text", placeholder: "#{@story.story_details}", :required => true
+    .form-group
+      = f.input :image, as: :file, label: "上傳照片"
+    - if action_name == 'edit'
+      .form-group
+        = f.button :submit, "完成編輯", class: "btn btn-primary"
+    - else
+      .form-group
+        = f.button :submit, "提供資訊", class: "btn btn-primary", role: "button"

@@ -75,3 +75,6 @@ pickle-email-*.html
 
 # assets pipeline
 /public/assets
+
+# env variables
+/config/env_variables

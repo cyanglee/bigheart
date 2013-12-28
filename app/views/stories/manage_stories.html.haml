@@ -1,21 +1,25 @@
-%h3 Users
-.span8
-  %table.table.table-condensed
-    %thead
-      %tr
-        %th 故事名稱
-        %th 發佈人
-        %th 目前狀態
-        %th
-    %tbody
-      - @stories.each do |story|
-        - user = User.where(id: story.user_id)[0]
-        -#- binding.pry
+- if can? :manage, :all
+  %h3 Users
+  .span8
+    %table.table.table-condensed
+      %thead
         %tr
-          %td= link_to story.story_name, story_path(story.id)
-          %td= user.name
-          %td= Story::TRANS_STATES[story.state]
-          %td
-            %a.btn.btn-primary{"data-toggle" => "modal", :href => "#state-options-#{story.id}", :type => "button"} 變更狀態
-            = render 'state'
-          -#%td= link_to("Delete user", user_path(user), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-mini') unless user == current_user
+          %th 故事名稱
+          %th 發佈人聯絡信箱
+          %th.col-md-1 目前狀態
+          %th.col-md-3 編輯
+      %tbody
+        - @stories.each do |story|
+          -#- user = User.where(id: story.user_id)[0]
+          -#- binding.pry
+          %tr
+            %td= link_to story.story_name, story_path(story.id)
+            -#%td= user.name
+            %td= story.contact_email
+            %td= Story::TRANS_STATES[story.state]
+            %td
+              %a.btn.btn-primary{"data-toggle" => "modal", :href => "#state-options-#{story.id}", :type => "button"} 變更狀態
+              %a.btn.btn-primary{:href => edit_story_path(story.id), :type => "button"} 編輯文章
+              = link_to("刪除文章", story_path(story.id), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-danger')
+              = render 'state'
+            -#%td= link_to("Delete user", user_path(user), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-mini') unless user == current_user

@@ -1,6 +1,5 @@
 class StoriesController < ApplicationController
-  before_action :check_user_id, only: [:edit, :destroy]
-  before_action :check_post_permit, only: :new
+  #before_action :show, :check_state
 
   def index
     # TODO: change the hardcoded value to reference
@@ -8,7 +7,17 @@ class StoriesController < ApplicationController
   end
 
   def show
-    @story = Story.find(params[:id])
+    story = Story.find(params[:id])
+    if story.state != 2
+      if user_signed_in? && current_user.has_role?(:admin)
+        @story = story
+      else
+        flash[:alert] = "這篇文章尚未通過審核!!"
+        redirect_to root_path
+      end
+    else
+      @story = story
+    end
   end
 
   def new
@@ -16,35 +25,40 @@ class StoriesController < ApplicationController
   end
 
   def create
-    story = Story.new(story_params)
-    if story.valid?
-      story.user_id = current_user.id
-      story.save
-      redirect_to stories_path, notice: '故事將於審查後發佈.'
+    @story = Story.new(story_params)
+
+    if @story.valid?
+      #story.user_id = current_user.id
+      @story.save
+      redirect_to stories_path, notice: "故事將於審查後發佈."
     else
+      flash.now.alert = "請檢查您所輸入的資訊是否有誤!!"
       render action: 'new'
     end
   end
 
   def edit
+    authorize! :update, @story
     @story = Story.find(params[:id])
   end
 
   def update
     @story = Story.find(params[:id])
     if @story.update_attributes(story_params)
-      @story.pending!
-      redirect_to stories_path, notice: '成功編輯故事.'
+      @story.published!
+      redirect_to manage_stories_path, notice: '成功編輯故事.'
     else
       render action: 'edit'
     end
   end
 
   def manage_stories
+    authorize! :manage_stories, @stories
     @stories = Story.all
   end
 
   def update_state
+    authorize! :manage_stories, Story
     story = Story.find(params[:id])
     story.send(params[:story][:state])
     #if params[:story][:state].to_sym == :published
@@ -54,31 +68,19 @@ class StoriesController < ApplicationController
     #elsif params[:story][:state] == 'pending'
     #  story.pending!
     #end
-    redirect_to manage_stories_path
+    redirect_to manage_stories_path, notice: "已變更狀態為#{Story::TRANS_STATES[story.state]}"
   end
 
   def destroy
+    authorize! :manage_stories, Story
     story = Story.find(params[:id])
     story.destroy
 
-    redirect_to stories_user_path(current_user.id)
+    redirect_to manage_stories_path
   end
 
 private
   def story_params
-    params.require(:story).permit(:story_name, :appear_day, :appear_time_from, :appear_time_to, :city, :appear_location, :info_from, :story_details, :image)
-  end
-
-  def check_user_id
-    story = Story.find(params[:id])
-    if story.user_id != current_user.id
-      raise "you're not able to edit this story"
-    end
-  end
-
-  def check_post_permit
-    if user_signed_in? == false
-      raise 'plz sign in or sign up'
-    end
+    params.require(:story).permit(:story_name, :appear_time_from, :appear_time_to, :city, :appear_location, :info_from, :story_details, :image, :contact_email, :appear_day => [])
   end
 end

@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.0.0'
 gem 'rails', '4.0.0'
 gem 'sass-rails', '~> 4.0.0'
-#gem 'sqlite3', :group => [:development, :test]
+gem 'sqlite3', :group => [:development, :test]
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
@@ -29,20 +29,21 @@ group :development do
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
   gem 'guard-bundler'
   gem 'guard-rails'
-  gem 'guard-rspec'
+  gem 'guard-rspec', "4.2.2"
   gem 'html2haml'
   gem 'hub', :require=>nil
   gem 'quiet_assets'
   gem 'rb-fchange', :require=>false
   gem 'rb-fsevent', :require=>false
   gem 'rb-inotify', :require=>false
-  gem 'pry', "~>0.9.10"
+  gem 'pry', "~> 0.9.12.4"
   gem 'pry-rails', "~> 0.3.2"
-  gem 'state_machine'
+  gem 'coderay'
 end
 group :development, :test do
   gem 'factory_girl_rails'
-  gem 'rspec-rails'
+  gem 'rspec-rails','~> 3.0.0.beta'
+  gem 'state_machine'
 end
 group :test do
   gem 'capybara'
@@ -50,5 +51,5 @@ group :test do
   gem 'email_spec'
 end
 group :production do
-
+  gem 'rails_12factor'
 end
