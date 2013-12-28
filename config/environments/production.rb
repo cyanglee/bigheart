@@ -82,7 +82,7 @@ Bigheart::Application.configure do
     password: ENV['MAIL_PW']
   }
 
-
+  config.action_mailer.perform_deliveries = true
   # Disable automatic flushing of the log to improve performance.
   # config.autoflush_log = false
 
