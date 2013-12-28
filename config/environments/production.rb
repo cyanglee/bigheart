@@ -81,7 +81,7 @@ Bigheart::Application.configure do
     user_name: ENV['MAIL_AD'],
     password: ENV['MAIL_PW']
   }
-
+  config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   # Disable automatic flushing of the log to improve performance.
   # config.autoflush_log = false
