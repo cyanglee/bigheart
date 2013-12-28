@@ -1,5 +1,5 @@
 class FeedbackMailer < ActionMailer::Base
-  default :from => Settings.admin_email.dup
+  default :from => ENV['admin_email']
 
   def send_report(email, story = nil, type, msg)
     @story = story
