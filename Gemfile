@@ -24,6 +24,7 @@ gem 'rmagick'
 gem 'hashie'
 gem 'pg'
 gem 'state_machine'
+gem 'i18n', github: 'svenfuchs/i18n'
 
 group :development do
   gem 'better_errors'
