@@ -75,13 +75,15 @@ Bigheart::Application.configure do
   config.action_mailer.smtp_settings = {
     address: "smtp.gmail.com",
     port: 587,
-    #domain: ENV["DOMAIN_NAME"],
+    domain: 'http://bigheart.herokuapp.com/',
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: ENV['mail_ad'],
-    password: ENV['mail_pw']
+    user_name: ENV['MAIL_AD'],
+    password: ENV['MAIL_PW']
   }
-
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
 
   # Disable automatic flushing of the log to improve performance.
   # config.autoflush_log = false

@@ -23,6 +23,8 @@ gem 'carrierwave'
 gem 'rmagick'
 gem 'hashie'
 gem 'pg'
+gem 'state_machine'
+gem 'i18n', github: 'svenfuchs/i18n'
 
 group :development do
   gem 'better_errors'
@@ -43,7 +45,6 @@ end
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails','~> 3.0.0.beta'
-  gem 'state_machine'
 end
 group :test do
   gem 'capybara'
