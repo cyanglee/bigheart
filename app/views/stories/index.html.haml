@@ -25,5 +25,5 @@
           %p
             - if s.appear_time_from.present? || s.appear_time_to.present?
               = "#{s.appear_time_from} - #{s.appear_time_to}"
-      %p.index.story_details #{truncate(word_wrap(s.story_details, line_width: 10), length: 50)}
+      %p.index.story_details #{simple_format(truncate(s.story_details), length: 50, style:"font-size: 1.3em")}
       %a.btn.btn-primary{href: "/stories/#{s.id}", role: "button"} 繼續閱讀 »
