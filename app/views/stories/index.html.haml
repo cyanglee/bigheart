@@ -12,8 +12,6 @@
   - @stories.each do |s|
     .story{class: s.city}
       - if s.image.file.nil?
-        %i.fa.fa-times-circle.fa-5x.text-danger
-        目前無可用照片
       -else
         = image_tag s.image_url(:thumb).to_s
       %h3
