@@ -2,17 +2,12 @@
 - if cookies[:site] == nil
   - cookies.permanent[:site] = {value: "bigheart"}
   = render 'stories/slogan'
-.btn-group
-  %button.select_city.btn.btn-default{type: "button"} 選擇查看地區
-  %button.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown", type: "button"}
-    %span.caret
-    %span.sr-only
-  %ul#filters_city.dropdown-menu{role: "menu"}
-    %li
-      %a{href: "#", "data-filter" => "*"} 查看全部
-    - Story::CITIES.each do |city, city_class|
-      %li
-        %a{href: "#", "data-filter" => "#{city_class}"} #{city}
+.form-group.col-md-2
+  #filters_city
+    %select#cities.form-control
+      %option{value: "*"} 查看全部
+      - Story::CITIES.each do |city, city_class|
+        %option{value: "#{city_class}"} #{city}
 #stories
   - @stories.each do |s|
     .story{class: s.city}

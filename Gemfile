@@ -25,6 +25,8 @@ gem 'hashie'
 gem 'pg'
 gem 'state_machine'
 gem 'i18n', github: 'svenfuchs/i18n'
+gem 'select2-bootstrap-css', github: 'fk/select2-bootstrap-css'
+gem 'compass-rails'
 
 group :development do
   gem 'better_errors'
