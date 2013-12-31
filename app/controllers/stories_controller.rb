@@ -1,5 +1,6 @@
 class StoriesController < ApplicationController
   #before_action :show, :check_state
+  before_filter :set_cache_buster, only: :index
 
   def index
     # TODO: change the hardcoded value to reference
@@ -83,4 +84,11 @@ private
   def story_params
     params.require(:story).permit(:story_name, :appear_time_from, :appear_time_to, :city, :appear_location, :info_from, :story_details, :image, :contact_email, :appear_day => [])
   end
+
+  def set_cache_buster
+    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+  end
 end
+
+

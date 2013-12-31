@@ -2,6 +2,8 @@
 - if cookies[:site] == nil
   - cookies.permanent[:site] = {value: "bigheart"}
   = render 'stories/slogan'
+-else
+  - Rails.cache.clear
 .form-group.col-md-2
   #filters_city
     %select#cities.form-control
