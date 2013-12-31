@@ -8,10 +8,10 @@
       = image_tag @story.image_url(:show).to_s
   .fb-like{"data-action" => "like", "data-href" => "http://bigheart.herokuapp.com/stories/#{@story.id}", "data-layout" => "button", "data-share" => "true", "data-show-faces" => "false"}
   %p
-    %strong.story_highlight
+    %strong.location
       = '地點: ' "#{@story.city} #{@story.appear_location}"
   %p
-    %strong.story_highlight
+    %strong.appear_time
       = '時段: '
       - @story.appear_day.select{|d| d.present?}.each do |day|
         = "#{day}"
