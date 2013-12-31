@@ -4,12 +4,6 @@
   = render 'stories/slogan'
 -else
   - Rails.cache.clear
-.form-group.col-md-2
-  #filters_city
-    %select#cities.form-control
-      %option{value: "*"} 查看全部
-      - Story::CITIES.each do |city, city_class|
-        %option{value: "#{city_class}"} #{city}
 #stories
   - @stories.each do |s|
     .story{class: s.city}
@@ -18,9 +12,9 @@
         = image_tag s.image_url(:thumb).to_s
       %h3
         %strong.story_title [#{s.city}] #{s.story_name}
-      %strong.story_highlight #{s.appear_location}
+      %strong.location #{s.appear_location}
       %p
-        %strong.story_highlight
+        %strong.appear_time
           時段:
           - s.appear_day.select{|d| d.present?}.each do |d|
             = "#{d}"
