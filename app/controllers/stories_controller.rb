@@ -9,6 +9,7 @@ class StoriesController < ApplicationController
 
   def show
     story = Story.find(params[:id])
+    set_meta_tags og: {title: "#{story.story_name}", description: "#{story.story_details}", type: "website", url: "http://bigheart.tw/stories/#{story.id}", image: {url: "http://bigheart.tw#{story.image}"}}
     if story.state != 2
       if user_signed_in? && current_user.has_role?(:admin)
         @story = story
