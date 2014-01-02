@@ -1,6 +1,7 @@
 !!!
 %html
   %head
+    = display_meta_tags
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
       %title= content_for?(:title) ? yield(:title) : "Bigheart"
       %meta{:content => content_for?(:description) ? yield(:description) : "Bigheart", :name => "description"}

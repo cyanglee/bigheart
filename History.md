@@ -1,3 +1,9 @@
+0.1.6 / 2014-01-02 
+==================
+
+ * remove uploads from gitignore
+ * move og tags to head
+ * Merge branch 'release/0.1.5' into develop
 0.1.5 / 2014-01-02 
 ==================
 
