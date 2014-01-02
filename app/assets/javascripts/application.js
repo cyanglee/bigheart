@@ -81,9 +81,16 @@ $(function() {
         });
     });
 
-    $('#filters_city a').click(function(){
-        var selector = $(this).attr('data-filter');
-        $('#stories').isotope({ filter: selector });
+//    filter city
+    var stories = $('#stories')
+    stories.isotope({
+        itemSelector: '.story'
+    });
+    $('#filters_city select').change(function() {
+        var filters = $(this).val();
+        stories.isotope({
+            filter: filters
+        });
     });
 
     $(".send_mail").click(function(){
@@ -92,6 +99,8 @@ $(function() {
         $.post('/send_mail/report', function(){
         });
     });
+
+    $('#cities').select2();
 
     $(".alert").fadeOut(5000)
 });

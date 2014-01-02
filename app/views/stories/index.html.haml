@@ -2,35 +2,24 @@
 - if cookies[:site] == nil
   - cookies.permanent[:site] = {value: "bigheart"}
   = render 'stories/slogan'
-.btn-group
-  %button.select_city.btn.btn-default{type: "button"} 選擇查看地區
-  %button.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown", type: "button"}
-    %span.caret
-    %span.sr-only
-  %ul#filters_city.dropdown-menu{role: "menu"}
-    %li
-      %a{href: "#", "data-filter" => "*"} 查看全部
-    - Story::CITIES.each do |city, city_class|
-      %li
-        %a{href: "#", "data-filter" => "#{city_class}"} #{city}
+-else
+  - Rails.cache.clear
 #stories
   - @stories.each do |s|
     .story{class: s.city}
       - if s.image.file.nil?
-        %i.fa.fa-times-circle.fa-5x.text-danger
-        目前無可用照片
       -else
         = image_tag s.image_url(:thumb).to_s
       %h3
         %strong.story_title [#{s.city}] #{s.story_name}
-      %strong.story_highlight #{s.appear_location}
+      %strong.location #{s.appear_location}
       %p
-        %strong.story_highlight
+        %strong.appear_time
           時段:
           - s.appear_day.select{|d| d.present?}.each do |d|
             = "#{d}"
           %p
             - if s.appear_time_from.present? || s.appear_time_to.present?
               = "#{s.appear_time_from} - #{s.appear_time_to}"
-      %p.index.story_details #{truncate(word_wrap(s.story_details, line_width: 10), length: 50)}
+      %p.index.story_details #{simple_format(truncate(s.story_details), length: 50, style:"font-size: 1.3em")}
       %a.btn.btn-primary{href: "/stories/#{s.id}", role: "button"} 繼續閱讀 »

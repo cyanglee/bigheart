@@ -1,3 +1,32 @@
+0.1.3 / 2014-01-02 
+==================
+
+ * add og tags
+ * fix index and show page font size
+ * fix index page story detail font size
+ * fix show page no image
+ * fix index popup
+ * fix index page story detail word wrap, closes #36
+ * fix create story detail text area, closes #37
+ * fix index page no picture, closes #35
+ * change filter city btn to dropdown
+ * Merge branch 'master' of github.com:cyanglee/bigheart into develop
+ * fix mailer default from
+ * add config.action_mailer.raise_delivery_errors = true
+ * add config.action_mailer.delivery_method = :smtp
+ * add config.action_mailer.perform_deliveries = true
+ * add domain to production
+ * fix mailer user name and password
+ * remove env variables from config
+ * ramove public assets
+ * add i18n gem
+ * fix seed for production
+ * change migration file for heroku
+ * move state machine
+ * Merge branch 'release/0.1.2' into develop
+ * Merge branch 'release/0.1.2'
+ * bump version
+ * Merge branch 'release/0.1.1'
 
 0.1.2 / 2013-12-28 
 ==================
