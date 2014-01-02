@@ -1,12 +1,13 @@
+- set_meta_tags og: {title: "#{@story.story_name}", description: "#{@story.story_details}", type: "website", url: "http://bigheart.tw/stories/#{@story.id}", image: {url: "http://bigheart.tw/uploads/story/image/#{@story.id}/show_#{@story.image}"}}
 #show_story
   %h1
     %strong.story_title
       = @story.story_name + '的故事'
   %p
     - if @story.image.file.nil?
-    -else
+    - else
       = image_tag @story.image_url(:show).to_s
-  .fb-like{"data-action" => "like", "data-href" => "http://bigheart.herokuapp.com/stories/#{@story.id}", "data-layout" => "button", "data-share" => "true", "data-show-faces" => "false"}
+  .fb-like{"data-action" => "like", "data-href" => "http://bigheart.tw/stories/#{@story.id}", "data-layout" => "button", "data-share" => "true", "data-show-faces" => "false"}
   %p
     %strong.location
       = '地點: ' "#{@story.city} #{@story.appear_location}"
