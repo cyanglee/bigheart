@@ -78,6 +78,3 @@ pickle-email-*.html
 
 # env variables
 /config/env_variables.rb
-
-#story image
-/public/uploads/
