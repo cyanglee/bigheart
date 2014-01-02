@@ -1,3 +1,8 @@
+0.1.5 / 2014-01-02 
+==================
+
+ * add og tags to show stories, change production assets to true
+ * Merge branch 'release/0.1.4' into develop
 
 0.1.4 / 2014-01-02 
 ==================
