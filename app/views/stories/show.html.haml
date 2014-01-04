@@ -10,7 +10,10 @@
     = @story.story_name + '的故事'
 %p
   %strong.location
-    = '地點: ' "#{@story.city} #{@story.appear_location}"
+    = '地點: '
+    = "#{@story.city}"
+    - JSON.parse(@story.appear_location).keys.each do |t|
+      = "#{t}"
 .row
   .col-md-6
     %p

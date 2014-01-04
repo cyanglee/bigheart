@@ -1,25 +1,13 @@
 class Story < ActiveRecord::Base
-
   attr_accessor :report_text
 
   validates :appear_location, :contact_email, :info_from, :story_details, presence:true
   validates :story_name, presence:true, uniqueness: true
 
+  belongs_to :user
+  mount_uploader :image, ImageUploader
+
   serialize :appear_day
-
-  STATES = Hashie::Mash.new(
-      :pending => 0,
-      #edited: 1,
-      :rejected => 1,
-      :published => 2
-  )
-
-  TRANS_STATES = Hashie::Mash.new(
-      "#{STATES.pending}" => '審核中',
-      #"#{STATES.edited}" => '編輯中',
-      "#{STATES.rejected}" => '駁回',
-      "#{STATES.published}" => '已刊登',
-  )
 
   CITIES = Hashie::Mash.new(
       "基隆市" => ".基隆市",
@@ -46,8 +34,21 @@ class Story < ActiveRecord::Base
       "金門縣" => ".金門縣"
   )
 
-  belongs_to :user
-  mount_uploader :image, ImageUploader
+
+  #define state machine
+  STATES = Hashie::Mash.new(
+      :pending => 0,
+      #edited: 1,
+      :rejected => 1,
+      :published => 2
+  )
+
+  TRANS_STATES = Hashie::Mash.new(
+      "#{STATES.pending}" => '審核中',
+      #"#{STATES.edited}" => '編輯中',
+      "#{STATES.rejected}" => '駁回',
+      "#{STATES.published}" => '已刊登',
+  )
 
   state_machine :state, initial: :pending do
     STATES.each do |state_name, state_value|
@@ -69,5 +70,10 @@ class Story < ActiveRecord::Base
     event :published do
       transition [:pending, :published, :rejected] => :published
     end
+  end
+
+  #get story location coordinate
+  def self.get_coordinate(location)
+    coordinate = Geokit::Geocoders::GoogleGeocoder.geocode("#{location}").ll
   end
 end

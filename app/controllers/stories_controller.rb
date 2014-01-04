@@ -28,8 +28,14 @@ class StoriesController < ApplicationController
 
   def create
     @story = Story.new(story_params)
+    coordinate = {}
 
     if @story.valid?
+      location = story_params[:appear_location].split('/').each do |l|
+        coordinate["#{l}"] = {}
+        coordinate["#{l}"] = Story.get_coordinate(l)
+      end
+      @story.appear_location = coordinate.to_json
       #story.user_id = current_user.id
       @story.save
       redirect_to stories_path, notice: "故事將於審查後發佈."
