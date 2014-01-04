@@ -1,0 +1,14 @@
+defaults: &defaults
+  ADMIN_NAME: 'Marcus'
+  ADMIN_EMAIL: 'bigheart.marcus@gmail.com'
+  ADMIN_PW: 'marcus0972'
+  MAIL_AD: 'bigheart.marcus@gmail.com'
+  MAIL_PW: 'bigheartmarcuskuan'
+  FB_ID: '472511292859137'
+  FB_SECRET: = 'bb192c42c1120a7df8190abc62fb5b1a'
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
