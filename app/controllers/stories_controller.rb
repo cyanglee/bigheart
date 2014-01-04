@@ -14,7 +14,7 @@ class StoriesController < ApplicationController
     @latitude = []
     @longtitude = []
 
-    JSON.parse(story.appear_location).each do |l, c|
+    Story.parse_location_json(story.appear_location).each do |l, c|
       lat_n_lng = c.split(',')
       @latitude << lat_n_lng[0]
       @longtitude << lat_n_lng[1]
@@ -42,15 +42,10 @@ class StoriesController < ApplicationController
 
   def create
     @story = Story.new(story_params)
-    coordinates = {}
 
     if @story.valid?
       #get story location coordinate
-      location = story_params[:appear_location].split('/').each do |l|
-        coordinates["#{l}"] = {}
-        coordinates["#{l}"] = Story.get_coordinate(story_params[:city], l)
-      end
-      @story.appear_location = coordinates.to_json
+      @story.appear_location = Story.manage_coordinate(story_params[:city], story_params[:appear_location]).to_json
       #story.user_id = current_user.id
       @story.save
       redirect_to stories_path, notice: "故事將於審查後發佈."
@@ -63,11 +58,19 @@ class StoriesController < ApplicationController
   def edit
     authorize! :update, @story
     @story = Story.find(params[:id])
+
+    location = []
+    Story.parse_location_json(@story.appear_location).keys.each do |l|
+      location << l
+    end
+    @location = location.join('/')
   end
 
   def update
     @story = Story.find(params[:id])
+
     if @story.update_attributes(story_params)
+      @story[:appear_location] = Story.manage_coordinate(story_params[:city], story_params[:appear_location]).to_json
       @story.published!
       redirect_to manage_stories_path, notice: '成功編輯故事.'
     else

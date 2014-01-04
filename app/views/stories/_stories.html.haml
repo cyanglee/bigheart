@@ -25,7 +25,7 @@
     .form-group
       = f.input :city, label: "縣市", :input_html => {class: "form-control"}, class: "city", collection: Story::CITIES.keys, selected: "#{@story.city}"
     .form-group
-      = f.input :appear_location, label: "地點", :input_html => {class: "form-control"}, type: "text", placeholder: "#{@story.appear_location}", :required => true
+      = f.input :appear_location, label: "地點", :input_html => {class: "form-control", value: "#{@location}"}, type: "text", :required => true
     .form-group
       = f.input :info_from, label: "資訊來源", :input_html => {class: "form-control"}, :required => true
     .form-group

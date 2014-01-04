@@ -72,8 +72,22 @@ class Story < ActiveRecord::Base
     end
   end
 
-  #get story location coordinate
+  # get story location coordinate
   def self.get_coordinate(city,location)
     Geokit::Geocoders::GoogleGeocoder.geocode("#{city}#{location}").ll
+  end
+
+  # manage location coordinate for saving
+  def self.manage_coordinate(city, locations)
+    coordinates = {}
+    location = locations.split('/').each do |l|
+      coordinates["#{l}"] = {}
+      coordinates["#{l}"] = get_coordinate(city, l)
+    end
+    return coordinates
+  end
+
+  def self.parse_location_json(locations)
+    JSON.parse(locations)
   end
 end
