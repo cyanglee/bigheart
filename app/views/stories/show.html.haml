@@ -1,27 +1,33 @@
-#show_story
-  %h1
-    %strong.story_title
-      = @story.story_name + '的故事'
-  %p
-    - if @story.image.file.nil?
-    - else
-      = image_tag @story.image_url(:show).to_s
-  .fb-like{"data-action" => "like", "data-href" => "http://bigheart.tw/stories/#{@story.id}", "data-layout" => "button", "data-share" => "true", "data-show-faces" => "false"}
-  %p
-    %strong.location
-      = '地點: ' "#{@story.city} #{@story.appear_location}"
-  %p
-    %strong.appear_time
-      = '時段: '
-      - @story.appear_day.select{|d| d.present?}.each do |day|
-        = "#{day}"
-      - if @story.appear_time_from.present? || @story.appear_time_to.present?
-        = ", #{@story.appear_time_from} - #{@story.appear_time_to}"
-  %p.info_from
-    = '資訊來源: ' "#{@story.info_from}"
-  %p
-    .story_details
-      = simple_format(@story.story_details)
-  %p
-    %a.fa.fa-exclamation-triangle.btn.btn-warning.btn-lg{"data-toggle" => "modal", :href => "#report"} 回報故事資訊錯誤
-    = render 'stories/report'
+.row
+  .col-md-6
+    .fb-like{"data-action" => "like", "data-href" => "http://bigheart.tw/stories/#{@story.id}", "data-layout" => "button", "data-share" => "true", "data-show-faces" => "false"}
+  .col-md-6
+    %p.pull-right
+      %a.fa.fa-exclamation-triangle.btn.btn-warning.btn-lg{"data-toggle" => "modal", :href => "#report"} 回報故事資訊錯誤
+      = render 'stories/report'
+%h1
+  %strong.story_title
+    = @story.story_name + '的故事'
+%p
+  %strong.location
+    = '地點: ' "#{@story.city} #{@story.appear_location}"
+.row
+  .col-md-6
+    %p
+      %strong.appear_time
+        = '時段: '
+        - @story.appear_day.select{|d| d.present?}.each do |day|
+          = "#{day}"
+        - if @story.appear_time_from.present? || @story.appear_time_to.present?
+          = ", #{@story.appear_time_from} - #{@story.appear_time_to}"
+    %p.info_from
+      = '資訊來源: ' "#{@story.info_from}"
+    %p
+      .story_details
+        = simple_format(@story.story_details)
+  .col-md-6.pull-left
+    %p
+      - if @story.image.file.nil?
+      - else
+        = image_tag @story.image_url(:show).to_s
+#map{style: "height: 300px; width: 1110px; margin-left: 15px; position: relative;"}

@@ -2,7 +2,7 @@
 - if cookies[:site] == nil
   - cookies.permanent[:site] = {value: "bigheart"}
   = render 'stories/slogan'
--else
+- else
   - Rails.cache.clear
 #stories
   - @stories.each do |s|

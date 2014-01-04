@@ -9,7 +9,10 @@
         %link{href: "//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css", rel: "stylesheet"}/
         %link{href: "http://fonts.googleapis.com/css?family=Pacifico", rel: "stylesheet", type: "text/css"}/
         = stylesheet_link_tag "application", :media => "all"
+        = javascript_include_tag "http://maps.google.com/maps/api/js?sensor=true"
+        = javascript_include_tag "gmaps"
         = javascript_include_tag "application"
+        -#= stylesheet_link_tag "select2-bootstrap.css"
         %script{:src => "//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"}
         = csrf_meta_tags
         = yield(:head)
@@ -20,7 +23,7 @@
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
         js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/zh_TW/all.js#xfbml=1&appId=472511292859137";
+        js.src = "//connect.facebook.net/zh_TW/all.js#xfbml=1&appId=250816725069932";
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
     = render 'layouts/navigation'
@@ -29,7 +32,6 @@
       .container
         .content
           = render 'layouts/messages'
-          = stylesheet_link_tag "select2-bootstrap.css"
           = yield
           %footer
       / ! end of .container
