@@ -102,56 +102,45 @@ $(function() {
 
     $('#cities').select2();
 
-    $(".alert").fadeOut(5000)
+    $(".alert").fadeOut(5000);
 
-//    var map = new GMaps({
-//        div: '#map',
-//        lat: -12.043333,
-//        lng: -77.028333
-//    });
-//
-//    GMaps.geolocate({
-//        success: function(position) {
-//            map.setCenter(position.coords.latitude, position.coords.longitude);
-//        },
-//        error: function(error) {
-//            alert('Geolocation failed: '+error.message);
-//        },
-//        not_supported: function() {
-//            alert("Your browser does not support geolocation");
-//        },
-//        always: function() {
-//            alert("Done!");
-//        }
-//    });
-
+    var coordinate = $('#map'),
+        latitude = coordinate.data('latitude'),
+        longtitude = coordinate.data('longtitude');
     var map = new GMaps({
         el: '#map',
-        lat: 121.5598345,
-        lng: 25.091075
+        lat: latitude[0],
+        lng: longtitude[0],
+        zoom: 14
     });
 
+    for (i = 0; i < latitude.length; i++){
+        map.addMarker({
+            lat: latitude[i],
+            lng: longtitude[i]
+        });
+    }
 
-    GMaps.geolocate({
-        success: function(position){
-            map.setCenter(position.coords.latitude, position.coords.longitude);
-
-            map.addMarker({
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
-                title: 'You are here.',
-                infoWindow: {
-                    content: '<p>You are here!</p>'
-                }
-            });
-        },
-        error: function(error){
-            alert('Geolocation failed: '+error.message);
-        },
-        not_supported: function(){
-            alert("Your browser does not support geolocation");
-        }
-    });
+//    GMaps.geolocate({
+//        success: function(position){
+//            map.setCenter(position.coords.latitude, position.coords.longitude);
+//
+//            map.addMarker({
+//                lat: position.coords.latitude,
+//                lng: position.coords.longitude,
+//                title: 'You are here.',
+//                infoWindow: {
+//                    content: '<p>You are here!</p>'
+//                }
+//            });
+//        },
+//        error: function(error){
+//            alert('Geolocation failed: '+error.message);
+//        },
+//        not_supported: function(){
+//            alert("Your browser does not support geolocation");
+//        }
+//    });
 
 });
 

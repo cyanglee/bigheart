@@ -12,8 +12,8 @@
   %strong.location
     = '地點: '
     = "#{@story.city}"
-    - JSON.parse(@story.appear_location).keys.each do |t|
-      = "#{t}"
+    - JSON.parse(@story.appear_location).keys.each do |l|
+      = "#{l}"
 .row
   .col-md-6
     %p
@@ -33,4 +33,6 @@
       - if @story.image.file.nil?
       - else
         = image_tag @story.image_url(:show).to_s
-#map{style: "height: 300px; width: 1110px; margin-left: 15px; position: relative;"}
+-#- JSON.parse(@story.appear_location).each do |l, c|
+#map{style: "height: 300px; width: 1110px; margin-left: 15px; position: relative;", "data-latitude" => "#{@latitude}", "data-longtitude" => "#{@longtitude}"}
+-#- binding.pry

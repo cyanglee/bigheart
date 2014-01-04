@@ -9,8 +9,22 @@ class StoriesController < ApplicationController
 
   def show
     story = Story.find(params[:id])
+
+    # get location latitude and longtitude
+    @latitude = []
+    @longtitude = []
+
+    JSON.parse(story.appear_location).each do |l, c|
+      lat_n_lng = c.split(',')
+      @latitude << lat_n_lng[0]
+      @longtitude << lat_n_lng[1]
+    end
+
+    # set og tags for facebook like and share
     set_meta_tags og: {title: "#{story.story_name}", description: "#{story.story_details}", type: "article", url: "http://bigheart.tw/stories/#{story.id}", image: "http://bigheart.tw#{story.image}"}
+
     if story.state != 2
+      # check admin role if story state isn't published
       if user_signed_in? && current_user.has_role?(:admin)
         @story = story
       else
