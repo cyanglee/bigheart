@@ -73,7 +73,7 @@ class Story < ActiveRecord::Base
   end
 
   #get story location coordinate
-  def self.get_coordinate(location)
-    coordinate = Geokit::Geocoders::GoogleGeocoder.geocode("#{location}").ll
+  def self.get_coordinate(city,location)
+    Geokit::Geocoders::GoogleGeocoder.geocode("#{city}#{location}").ll
   end
 end
