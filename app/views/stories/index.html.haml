@@ -12,7 +12,10 @@
         = image_tag s.image_url(:thumb).to_s
       %h3
         %strong.story_title [#{s.city}] #{s.story_name}
-      %strong.location #{s.appear_location}
+      %strong.location
+        = '地點: '
+        - JSON.parse(s.appear_location).keys.each do |t|
+          = "#{t}"
       %p
         %strong.appear_time
           時段:
