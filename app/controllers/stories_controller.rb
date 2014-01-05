@@ -10,14 +10,14 @@ class StoriesController < ApplicationController
   def show
     story = Story.find(params[:id])
 
-    # get location latitude and longtitude
+    # get location latitude and longitude
     @latitude = []
-    @longtitude = []
+    @longitude = []
 
     Story.parse_location_json(story.appear_location).each do |l, c|
       lat_n_lng = c.split(',')
       @latitude << lat_n_lng[0]
-      @longtitude << lat_n_lng[1]
+      @longitude << lat_n_lng[1]
     end
 
     # set og tags for facebook like and share

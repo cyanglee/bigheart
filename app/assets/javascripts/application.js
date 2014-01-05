@@ -106,18 +106,18 @@ $(function() {
 
     var coordinate = $('#map'),
         latitude = coordinate.data('latitude'),
-        longtitude = coordinate.data('longtitude');
+        longitude = coordinate.data('longitude');
     var map = new GMaps({
         el: '#map',
         lat: latitude[0],
-        lng: longtitude[0],
+        lng: longitude[0],
         zoom: 14
     });
 
     for (i = 0; i < latitude.length; i++){
         map.addMarker({
             lat: latitude[i],
-            lng: longtitude[i]
+            lng: longitude[i]
         });
     }
 
