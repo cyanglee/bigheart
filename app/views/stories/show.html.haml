@@ -34,5 +34,8 @@
       - else
         = image_tag @story.image_url(:show).to_s
 -#- JSON.parse(@story.appear_location).each do |l, c|
-#map{style: "height: 300px; width: 1110px; margin-left: 15px; position: relative;", "data-action" => "show","data-latitude" => "#{@latitude}", "data-longitude" => "#{@longitude}"}
+.panel.panel-info{style: "margin-top: 15px;"}
+  .panel-heading 地圖資訊
+  .panel-body
+    #map{style: "height: 300px; width: 1108px; position: relative;", "data-action" => "show","data-latitude" => "#{@latitude}", "data-longitude" => "#{@longitude}"}
 -#- binding.pry

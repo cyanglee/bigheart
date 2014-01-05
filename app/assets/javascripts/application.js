@@ -140,17 +140,10 @@ $(function() {
             }
             else if (action == 'show'){
                 map.setCenter(latitude[0], longitude[0]);
+                map.fitZoom(latitude[0], longitude[0]);
                 map.addMarker({
                     lat: latitude[0],
                     lng: longitude[0]
-                });
-
-                map.addMarker({
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude,
-                    infoWindow: {
-                        content: '<p>你在這邊!</p>'
-                    }
                 });
             }
         },
