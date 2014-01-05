@@ -106,13 +106,16 @@ $(function() {
 
     var coordinate = $('#map'),
         latitude = coordinate.data('latitude'),
-        longitude = coordinate.data('longitude');
+        longitude = coordinate.data('longitude'),
+        action = coordinate.data('action');
     var map = new GMaps({
         el: '#map',
         lat: latitude[0],
         lng: longitude[0],
         zoom: 14
+
     });
+
 
     for (i = 0; i < latitude.length; i++){
         map.addMarker({
@@ -121,26 +124,44 @@ $(function() {
         });
     }
 
-//    GMaps.geolocate({
-//        success: function(position){
-//            map.setCenter(position.coords.latitude, position.coords.longitude);
-//
-//            map.addMarker({
-//                lat: position.coords.latitude,
-//                lng: position.coords.longitude,
-//                title: 'You are here.',
-//                infoWindow: {
-//                    content: '<p>You are here!</p>'
-//                }
-//            });
-//        },
-//        error: function(error){
-//            alert('Geolocation failed: '+error.message);
-//        },
-//        not_supported: function(){
-//            alert("Your browser does not support geolocation");
-//        }
-//    });
+    GMaps.geolocate({
+        success: function(position){
+
+            if (action == 'index'){
+                map.setCenter(position.coords.latitude, position.coords.longitude);
+                map.addMarker({
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                    title: 'You are here.',
+                    infoWindow: {
+                        content: '<p>你在這邊!</p>'
+                    }
+                });
+            }
+            else if (action == 'show'){
+                map.setCenter(latitude[0], longitude[0]);
+                map.addMarker({
+                    lat: latitude[0],
+                    lng: longitude[0]
+                });
+
+                map.addMarker({
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                    infoWindow: {
+                        content: '<p>你在這邊!</p>'
+                    }
+                });
+            }
+        },
+        error: function(error){
+            alert('Geolocation failed: '+error.message);
+        },
+        not_supported: function(){
+            alert("Your browser does not support geolocation");
+        }
+    });
+
 
 });
 

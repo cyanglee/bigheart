@@ -4,6 +4,7 @@
   = render 'stories/slogan'
 - else
   - Rails.cache.clear
+#map{style: "height: 300px; width: 1110px; margin-left: 15px; position: relative;", "data-action" => "index","data-latitude" => "#{@latitude}", "data-longitude" => "#{@longitude}"}
 #stories
   - @stories.each do |s|
     .story{class: s.city}
