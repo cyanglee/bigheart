@@ -1,0 +1,54 @@
+.modal.fade{:id => "show_map", :style => "display: none;"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %a.close{"data-dismiss" => "modal"}
+          %i.fa.fa-times-circle
+        %h3.modal-title 查看附近有誰需要幫助
+      .modal-body
+        #index_map{"data-action" => "index", "data-latitude" => "#{@latitude}", "data-longitude" => "#{@longitude}"}
+      .modal-footer{style: "margin-top: 0px"}
+        %button.btn.btn-default{"data-dismiss" => "modal", type: "button"} 關閉
+:javascript
+    var coordinate = $('#index_map'),
+        latitude = coordinate.data('latitude'),
+        longitude = coordinate.data('longitude'),
+        action = coordinate.data('action');
+    var map = new GMaps({
+            el: '#index_map',
+            lat: latitude[0],
+            lng: longitude[0],
+            height: '558px',
+            width: '558px',
+            zoom: 14
+
+        });
+    for (i = 0; i < latitude.length; i++){
+            map.addMarker({
+                lat: latitude[i],
+                lng: longitude[i],
+            });
+    }
+
+    $('#show_map').on('shown.bs.modal', function () {
+          map.refresh();
+          GMaps.geolocate({
+                success: function(position){
+                      map.setCenter(position.coords.latitude, position.coords.longitude);
+                      map.addMarker({
+                          lat: position.coords.latitude,
+                          lng: position.coords.longitude,
+                          title: 'You are here.',
+                          infoWindow: {
+                              content: '<p>你在這邊!</p>'
+                          }
+                      });
+                },
+                error: function(error){
+                    alert('Geolocation failed: '+error.message);
+                },
+                not_supported: function(){
+                    alert("Your browser does not support geolocation");
+                }
+          });
+    });

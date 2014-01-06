@@ -104,56 +104,56 @@ $(function() {
 
     $(".alert").fadeOut(5000);
 
-    var coordinate = $('#map'),
-        latitude = coordinate.data('latitude'),
-        longitude = coordinate.data('longitude'),
-        action = coordinate.data('action');
-    var map = new GMaps({
-        el: '#map',
-        lat: latitude[0],
-        lng: longitude[0],
-        zoom: 14
-
-    });
-
-
-    for (i = 0; i < latitude.length; i++){
-        map.addMarker({
-            lat: latitude[i],
-            lng: longitude[i]
-        });
-    }
-
-    GMaps.geolocate({
-        success: function(position){
-
-            if (action == 'index'){
-                map.setCenter(position.coords.latitude, position.coords.longitude);
-                map.addMarker({
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude,
-                    title: 'You are here.',
-                    infoWindow: {
-                        content: '<p>你在這邊!</p>'
-                    }
-                });
-            }
-            else if (action == 'show'){
-                map.setCenter(latitude[0], longitude[0]);
-                map.fitZoom(latitude[0], longitude[0]);
-                map.addMarker({
-                    lat: latitude[0],
-                    lng: longitude[0]
-                });
-            }
-        },
-        error: function(error){
-            alert('Geolocation failed: '+error.message);
-        },
-        not_supported: function(){
-            alert("Your browser does not support geolocation");
-        }
-    });
+//    var coordinate = $('#map'),
+//        latitude = coordinate.data('latitude'),
+//        longitude = coordinate.data('longitude'),
+//        action = coordinate.data('action');
+//    var map = new GMaps({
+//        el: '#map',
+//        lat: latitude[0],
+//        lng: longitude[0],
+//        zoom: 14
+//
+//    });
+//
+//
+//    for (i = 0; i < latitude.length; i++){
+//        map.addMarker({
+//            lat: latitude[i],
+//            lng: longitude[i]
+//        });
+//    }
+//
+//    GMaps.geolocate({
+//        success: function(position){
+//
+//            if (action == 'index'){
+//                map.setCenter(position.coords.latitude, position.coords.longitude);
+//                map.addMarker({
+//                    lat: position.coords.latitude,
+//                    lng: position.coords.longitude,
+//                    title: 'You are here.',
+//                    infoWindow: {
+//                        content: '<p>你在這邊!</p>'
+//                    }
+//                });
+//            }
+//            else if (action == 'show'){
+//                map.setCenter(latitude[0], longitude[0]);
+//                map.fitZoom(latitude[0], longitude[0]);
+//                map.addMarker({
+//                    lat: latitude[0],
+//                    lng: longitude[0]
+//                });
+//            }
+//        },
+//        error: function(error){
+//            alert('Geolocation failed: '+error.message);
+//        },
+//        not_supported: function(){
+//            alert("Your browser does not support geolocation");
+//        }
+//    });
 
 
 });

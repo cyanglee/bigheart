@@ -37,5 +37,28 @@
 .panel.panel-info{style: "margin-top: 15px;"}
   .panel-heading 地圖資訊
   .panel-body
-    #map{style: "height: 300px; width: 1108px; position: relative;", "data-action" => "show","data-latitude" => "#{@latitude}", "data-longitude" => "#{@longitude}"}
--#- binding.pry
+    #show_map{style: "height: 300px; width: 1108px; position: relative;", "data-latitude" => "#{@latitude}", "data-longitude" => "#{@longitude}"}
+:javascript
+  var coordinate = $('#show_map'),
+      latitude = coordinate.data('latitude'),
+      longitude = coordinate.data('longitude'),
+      action = coordinate.data('action');
+  var map = new GMaps({
+          el: '#show_map',
+          lat: latitude[0],
+          lng: longitude[0],
+          zoom: 14
+
+      });
+  for (i = 0; i < latitude.length; i++){
+          map.addMarker({
+              lat: latitude[i],
+              lng: longitude[i]
+          });
+      }
+  map.setCenter(latitude[0], longitude[0]);
+  map.fitZoom(latitude[0], longitude[0]);
+  map.addMarker({
+      lat: latitude[0],
+      lng: longitude[0]
+  });

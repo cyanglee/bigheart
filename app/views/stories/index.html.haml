@@ -4,14 +4,8 @@
   = render 'stories/slogan'
 - else
   - Rails.cache.clear
-%a.btn.btn-info{"data-toggle" => "collapse", href: "#collapseOne"}
-  顯示或隱藏地圖
-.panel.panel-info{style: "margin-top: 5px;"}
-  .panel-heading
-    地圖
-  #collapseOne.panel-collapse.collapse.in
-    .panel-body
-      #map{style: "height: 300px; width: 1108px; position: relative;", "data-action" => "index","data-latitude" => "#{@latitude}", "data-longitude" => "#{@longitude}"}
+.btn.btn-info{style: "margin-bottom: 20px; margin-left: 4px;","data-toggle" => "modal", :href => "#show_map"} 看看附近有誰需要幫助
+= render 'layouts/index_map'
 #stories
   - @stories.each do |s|
     .story{class: s.city}
