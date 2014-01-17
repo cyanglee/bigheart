@@ -4,7 +4,7 @@
   = render 'stories/slogan'
 - else
   - Rails.cache.clear
-.btn.btn-info{style: "margin-bottom: 20px; margin-left: 4px;","data-toggle" => "modal", :href => "#toggle_map"} 看看附近有誰需要幫助
+.btn.btn-info{style: "margin-bottom: 20px; margin-left: 4px;","data-toggle" => "modal", :href => "#toggle_map"} 看看五公里內有誰需要幫助
 = render 'layouts/index_map'
 #stories
   - @stories.each do |s|
