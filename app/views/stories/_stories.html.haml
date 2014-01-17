@@ -25,7 +25,8 @@
     .form-group
       = f.input :city, label: "縣市", :input_html => {class: "form-control"}, class: "city", collection: Story::CITIES.keys, selected: "#{@story.city}"
     .form-group
-      = f.input :appear_location, label: "地點", :input_html => {class: "form-control"}, type: "text", placeholder: "#{@story.appear_location}", :required => true
+      = f.input :appear_location, label: "地點", :input_html => {class: "form-control", value: "#{@location}"}, hint: "若有兩個或以上地點，請以\"/\"區隔。", type: "text", :required => true
+      = "範例: 景美站/公館站/大坪林站"
     .form-group
       = f.input :info_from, label: "資訊來源", :input_html => {class: "form-control"}, :required => true
     .form-group

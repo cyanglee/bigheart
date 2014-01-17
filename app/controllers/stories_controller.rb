@@ -5,12 +5,41 @@ class StoriesController < ApplicationController
   def index
     # TODO: change the hardcoded value to reference
       @stories = Story.where(state: Story::STATES.published)
+      # get location latitude and longitude
+      @details = {}
+
+      @stories.each do |s|
+          @details[s.story_name] = {}
+          @details[s.story_name][:latitude] = []
+          @details[s.story_name][:longitude] = []
+          Story.parse_location_json(s.appear_location).each do |l, c|
+            lat_n_lng = c.split(',')
+            @details[s.story_name][:latitude] << lat_n_lng[0]
+            @details[s.story_name][:longitude] << lat_n_lng[1]
+          end
+
+      end
+
   end
 
   def show
     story = Story.find(params[:id])
-    set_meta_tags og: {title: "#{story.story_name}", description: "#{story.story_details}", type: "article", url: "http://bigheart.tw/stories/#{story.id}", image: {url: "http://bigheart.tw#{story.image}"}}
+
+    # get location latitude and longitude
+    @latitude = []
+    @longitude = []
+
+    Story.parse_location_json(story.appear_location).each do |l, c|
+      lat_n_lng = c.split(',')
+      @latitude << lat_n_lng[0]
+      @longitude << lat_n_lng[1]
+    end
+
+    # set og tags for facebook like and share
+    set_meta_tags og: {title: "#{story.story_name}", description: "#{story.story_details}", type: "article", url: "http://bigheart.tw/stories/#{story.id}", image: "http://bigheart.tw#{story.image}"}
+
     if story.state != 2
+      # check admin role if story state isn't published
       if user_signed_in? && current_user.has_role?(:admin)
         @story = story
       else
@@ -30,6 +59,8 @@ class StoriesController < ApplicationController
     @story = Story.new(story_params)
 
     if @story.valid?
+      #get story location coordinate
+      @story.appear_location = Story.manage_coordinate(story_params[:city], story_params[:appear_location]).to_json
       #story.user_id = current_user.id
       @story.save
       redirect_to stories_path, notice: "故事將於審查後發佈."
@@ -42,11 +73,19 @@ class StoriesController < ApplicationController
   def edit
     authorize! :update, @story
     @story = Story.find(params[:id])
+
+    location = []
+    Story.parse_location_json(@story.appear_location).keys.each do |l|
+      location << l
+    end
+    @location = location.join('/')
   end
 
   def update
     @story = Story.find(params[:id])
+
     if @story.update_attributes(story_params)
+      @story[:appear_location] = Story.manage_coordinate(story_params[:city], story_params[:appear_location]).to_json
       @story.published!
       redirect_to manage_stories_path, notice: '成功編輯故事.'
     else

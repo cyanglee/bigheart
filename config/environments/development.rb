@@ -32,8 +32,8 @@ Bigheart::Application.configure do
     port: 587,
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: ENV['MAIL_AD'],
-    password: ENV['MAIL_PW']
+    user_name: Settings.MAIL_AD,
+    password: Settings.MAIL_PW
   }
   # Send email in development mode.
   config.action_mailer.perform_deliveries = true

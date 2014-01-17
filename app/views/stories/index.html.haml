@@ -2,8 +2,10 @@
 - if cookies[:site] == nil
   - cookies.permanent[:site] = {value: "bigheart"}
   = render 'stories/slogan'
--else
+- else
   - Rails.cache.clear
+.btn.btn-info{style: "margin-bottom: 20px; margin-left: 4px;","data-toggle" => "modal", :href => "#toggle_map"} 看看五公里內有誰需要幫助
+= render 'layouts/index_map'
 #stories
   - @stories.each do |s|
     .story{class: s.city}
@@ -12,7 +14,10 @@
         = image_tag s.image_url(:thumb).to_s
       %h3
         %strong.story_title [#{s.city}] #{s.story_name}
-      %strong.location #{s.appear_location}
+      %strong.location
+        = '地點: '
+        - JSON.parse(s.appear_location).keys.each do |t|
+          = "#{t}"
       %p
         %strong.appear_time
           時段:

@@ -102,7 +102,7 @@ $(function() {
 
     $('#cities').select2();
 
-    $(".alert").fadeOut(5000)
+    $(".alert").fadeOut(5000);
 });
 
 $(window).load(function(){
