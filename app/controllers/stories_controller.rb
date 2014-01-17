@@ -6,15 +6,18 @@ class StoriesController < ApplicationController
     # TODO: change the hardcoded value to reference
       @stories = Story.where(state: Story::STATES.published)
       # get location latitude and longitude
-      @latitude = []
-      @longitude = []
+      @details = {}
 
-      @stories.each do |sl|
-        Story.parse_location_json(sl.appear_location).each do |l, c|
-          lat_n_lng = c.split(',')
-          @latitude << lat_n_lng[0]
-          @longitude << lat_n_lng[1]
-        end
+      @stories.each do |s|
+          @details[s.story_name] = {}
+          @details[s.story_name][:latitude] = []
+          @details[s.story_name][:longitude] = []
+          Story.parse_location_json(s.appear_location).each do |l, c|
+            lat_n_lng = c.split(',')
+            @details[s.story_name][:latitude] << lat_n_lng[0]
+            @details[s.story_name][:longitude] << lat_n_lng[1]
+          end
+
       end
 
   end

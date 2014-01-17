@@ -48,17 +48,13 @@
           lat: latitude[0],
           lng: longitude[0],
           zoom: 14
-
       });
   for (i = 0; i < latitude.length; i++){
           map.addMarker({
               lat: latitude[i],
-              lng: longitude[i]
+              lng: longitude[i],
+              icon: '/assets/red-dot.png'
           });
       }
   map.setCenter(latitude[0], longitude[0]);
   map.fitZoom(latitude[0], longitude[0]);
-  map.addMarker({
-      lat: latitude[0],
-      lng: longitude[0]
-  });
