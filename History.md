@@ -1,3 +1,23 @@
+0.1.7 / 2014-01-17 
+==================
+
+ * fix index map marker display problem
+ * finish adding story title to index map
+ * finish marking point near user location
+ * move index map into modal
+ * put map into panel
+ * fix map marker for inde and show
+ * add hint to appear location
+ * fix edit story
+ * add map marker for story location
+ * fix cross street coordinate
+ * remove application.yml from the repo for the security reason
+ * fix application.yml and seeds
+ * fix index story location
+ * fix seeds story location
+ * get story location coordinate
+ * add map to show story
+ * Merge branch 'release/0.1.6' into develop
 0.1.6 / 2014-01-02 
 ==================
 
