@@ -1,3 +1,8 @@
+0.1.8 / 2014-01-18 
+==================
+
+ * use AWS for image
+ * Merge branch 'release/0.1.7' into develop
 0.1.7 / 2014-01-17 
 ==================
 
