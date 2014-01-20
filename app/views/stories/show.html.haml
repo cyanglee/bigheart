@@ -47,7 +47,7 @@
           el: '#show_map',
           lat: latitude[0],
           lng: longitude[0],
-          zoom: 14
+          zoom: 16
       });
   for (i = 0; i < latitude.length; i++){
           map.addMarker({
@@ -57,4 +57,7 @@
           });
       }
   map.setCenter(latitude[0], longitude[0]);
-  map.fitZoom(latitude[0], longitude[0]);
+
+  if (latitude.length > 1) {
+      map.fitZoom(latitude[0], longitude[0]);
+  };
