@@ -9,17 +9,16 @@ class StoriesController < ApplicationController
       @details = {}
 
       @stories.each do |s|
-          @details[s.story_name] = {}
-          @details[s.story_name][:latitude] = []
-          @details[s.story_name][:longitude] = []
-          Story.parse_location_json(s.appear_location).each do |l, c|
-            lat_n_lng = c.split(',')
-            @details[s.story_name][:latitude] << lat_n_lng[0]
-            @details[s.story_name][:longitude] << lat_n_lng[1]
-          end
-
+        @details[s.story_name] = {}
+        @details[s.story_name][:latitude] = []
+        @details[s.story_name][:longitude] = []
+        @details[s.story_name][:story_id] = s.id
+        Story.parse_location_json(s.appear_location).each do |l, c|
+          lat_n_lng = c.split(',')
+          @details[s.story_name][:latitude] << lat_n_lng[0]
+          @details[s.story_name][:longitude] << lat_n_lng[1]
+        end
       end
-
   end
 
   def show

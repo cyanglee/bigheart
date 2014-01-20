@@ -20,6 +20,7 @@
         details = index_map.data('details'),
         titles = index_map.data('titles'),
         action = index_map.data('action');
+        console.log(details)
     GMaps.geolocate({
         success: function(position){
             //filter stories which is in the same city with users location
@@ -60,24 +61,25 @@
             var init_marker = map.addMarker({
                 lat: position.coords.latitude,
                 lng: position.coords.longitude,
-                title: 'You are here.',
+                title: '您的位置',
                 icon: '/assets/green-dot.png',
                 infoWindow: {
-                    content: '<p>你在這邊!</p>'
+                    content: '<p>您的位置</p>'
                 }
             });
 
             for (t = 0; t < titles.length; t++){
                 var title = details[titles[t]]
                     latitude = title['latitude'],
-                    longitude = title['longitude'];
+                    longitude = title['longitude'],
+                    story_id = title['story_id'];
                 for (i = 0; i < latitude.length; i++){
                     map.addMarker({
                         lat: latitude[i],
                         lng: longitude[i],
                         icon: '/assets/red-dot.png',
                         infoWindow: {
-                            content: '<p>' + titles[t] + '</p>'
+                            content: '<a href="stories/' + story_id + '">' + titles[t] + '</a>'
                         }
                     });
                 }
@@ -98,7 +100,7 @@
                              chosen_marker = map.addMarker({
                                 lat: chosen_lat,
                                 lng: chosen_lng,
-                                title: 'You are here.',
+                                title: '您所選擇的定位點',
                                 icon: '/assets/green-dot.png',
                              });
                              map.setCenter(chosen_lat, chosen_lng);
@@ -148,11 +150,7 @@
             var init_marker = map.addMarker({
                 lat : 25.13365098029151,
                 lng : 121.7408149802915,
-                title: 'You are here.',
                 icon: '/assets/green-dot.png',
-                infoWindow: {
-                    content: '<p>你在這邊!</p>'
-                }
             });
 
             for (t = 0; t < titles.length; t++){
@@ -196,7 +194,7 @@
                              chosen_marker = map.addMarker({
                                 lat: chosen_lat,
                                 lng: chosen_lng,
-                                title: 'You are here.',
+                                title: '您所選擇的定位點',
                                 icon: '/assets/green-dot.png',
                              });
                              map.setCenter(chosen_lat, chosen_lng);
