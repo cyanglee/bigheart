@@ -36,8 +36,8 @@ class StoriesController < ApplicationController
     end
 
     # set og tags for facebook like and share
-    set_meta_tags og: {title: "#{story.story_name}", description: "#{story.story_details}", type: "article", url: "http://bigheart.tw/stories/#{story.id}", image: "http://bigheart.tw#{story.image}"}
-
+    set_meta_tags og: {title: "#{story.story_name}", description: "#{story.story_details}", type: "article", url: "http://bigheart.tw/stories/#{story.id}", image: "#{story.image}"}
+    set_meta_tags fb: {app_id: "250816725069932"}
     if story.state != 2
       # check admin role if story state isn't published
       if user_signed_in? && current_user.has_role?(:admin)

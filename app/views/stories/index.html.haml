@@ -13,7 +13,7 @@
         %option{value: "*"} 查看全部
         - Story::CITIES.each do |city, city_class|
           %option{value: "#{city_class}"} #{city}
-#stories
+#stories{style: "margin-top: 50px"}
   - @stories.each do |s|
     .story{class: s.city}
       - if s.image.file.nil?
