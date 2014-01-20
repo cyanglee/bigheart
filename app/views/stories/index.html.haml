@@ -9,7 +9,7 @@
   = render 'layouts/index_map'
   .form-group
     #filters_city
-      %select#cities.form-control
+      %select#cities.form-control{style: "padding-right: 1px;"}
         %option{value: "*"} 查看全部
         - Story::CITIES.each do |city, city_class|
           %option{value: "#{city_class}"} #{city}
