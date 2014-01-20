@@ -72,7 +72,6 @@ class StoriesController < ApplicationController
   def edit
     authorize! :update, @story
     @story = Story.find(params[:id])
-
     location = []
     Story.parse_location_json(@story.appear_location).keys.each do |l|
       location << l

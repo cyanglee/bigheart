@@ -20,7 +20,6 @@
         details = index_map.data('details'),
         titles = index_map.data('titles'),
         action = index_map.data('action');
-        console.log(details)
     GMaps.geolocate({
         success: function(position){
             //filter stories which is in the same city with users location
@@ -78,6 +77,7 @@
                         lat: latitude[i],
                         lng: longitude[i],
                         icon: '/assets/red-dot.png',
+                        title: titles[t],
                         infoWindow: {
                             content: '<a href="stories/' + story_id + '">' + titles[t] + '</a>'
                         }
@@ -140,30 +140,32 @@
                     action = index_map.data('action');
             var map = new GMaps({
                 el: '#index_map',
-                lat : 25.13365098029151,
-                lng : 121.7408149802915,
+                lat : 25.132302,
+                lng : 121.739466,
                 height: '558px',
                 width: '558px',
                 zoom: 14
             });
 
             var init_marker = map.addMarker({
-                lat : 25.13365098029151,
-                lng : 121.7408149802915,
+                lat : 25.132302,
+                lng : 121.739466,
                 icon: '/assets/green-dot.png',
             });
 
             for (t = 0; t < titles.length; t++){
                 var title = details[titles[t]]
                     latitude = title['latitude'],
-                    longitude = title['longitude'];
+                    longitude = title['longitude'],
+                    story_id = title['story_id'];
                 for (i = 0; i < latitude.length; i++){
                     map.addMarker({
                         lat: latitude[i],
                         lng: longitude[i],
                         icon: '/assets/red-dot.png',
+                        title: titles[t],
                         infoWindow: {
-                            content: '<p>' + titles[t] + '</p>'
+                            content: '<a href="stories/' + story_id + '">' + titles[t] + '</a>'
                         }
                     });
                 }
@@ -175,7 +177,7 @@
                     map.setCenter(chosen_lat, chosen_lng);
                 }
                 else {
-                    map.setCenter(25.13365098029151, 121.7408149802915);
+                    map.setCenter(25.132302, 121.739466);
                 }
             });
 
