@@ -15,7 +15,7 @@
     - JSON.parse(@story.appear_location).keys.each do |l|
       = "#{l}"
 .row
-  .col-md-6
+  .col-sm-6
     %p
       %strong.appear_time
         = '時段: '
@@ -28,16 +28,16 @@
     %p
       .story_details
         = simple_format(@story.story_details)
-  .col-md-6.pull-left
+  .col-sm-6
     %p
       - if @story.image.file.nil?
       - else
-        = image_tag @story.image_url(:show).to_s
+        %img.img-responsive{src: "#{@story.image_url(:show).to_s}"}
 -#- JSON.parse(@story.appear_location).each do |l, c|
 .panel.panel-info{style: "margin-top: 15px;"}
-  .panel-heading 地圖資訊
+  .panel-heading 地圖
   .panel-body
-    #show_map{style: "height: 300px; width: 1108px; position: relative;", "data-latitude" => "#{@latitude}", "data-longitude" => "#{@longitude}"}
+    #show_map{style: "height: 300px; width: auto; position: relative;", "data-latitude" => "#{@latitude}", "data-longitude" => "#{@longitude}"}
 :javascript
   var coordinate = $('#show_map'),
       latitude = coordinate.data('latitude'),

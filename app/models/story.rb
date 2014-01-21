@@ -100,7 +100,7 @@ class Story < ActiveRecord::Base
   # manage location coordinate for saving
   def self.manage_coordinate(city, locations)
     coordinates = {}
-    locations.split('/').each do |l|
+    locations.split(',').each do |l|
       coordinates["#{l}"] = {}
       coordinates["#{l}"] = get_coordinate(city, l)
     end
