@@ -1,3 +1,17 @@
+0.1.9 / 2014-01-21 
+==================
+
+ * fix map marker overlap
+ * fix mobile layout
+ * add thumbnail image to edit story page
+ * add link to map info window to story
+ * fix map language
+ * fix show map zoom
+ * fix toggle index map set center and allow select city when geolocation success
+ * fix facebook og tags
+ * move select cities down from navbar, allow select city when geolocation fail
+ * remove city filter in show story page
+ * Merge branch 'release/0.1.8' into develop
 0.1.8 / 2014-01-18 
 ==================
 
