@@ -9,17 +9,16 @@ class StoriesController < ApplicationController
       @details = {}
 
       @stories.each do |s|
-          @details[s.story_name] = {}
-          @details[s.story_name][:latitude] = []
-          @details[s.story_name][:longitude] = []
-          Story.parse_location_json(s.appear_location).each do |l, c|
-            lat_n_lng = c.split(',')
-            @details[s.story_name][:latitude] << lat_n_lng[0]
-            @details[s.story_name][:longitude] << lat_n_lng[1]
-          end
-
+        @details[s.story_name] = {}
+        @details[s.story_name][:latitude] = []
+        @details[s.story_name][:longitude] = []
+        @details[s.story_name][:story_id] = s.id
+        Story.parse_location_json(s.appear_location).each do |l, c|
+          lat_n_lng = c.split(',')
+          @details[s.story_name][:latitude] << lat_n_lng[0]
+          @details[s.story_name][:longitude] << lat_n_lng[1]
+        end
       end
-
   end
 
   def show
@@ -36,9 +35,9 @@ class StoriesController < ApplicationController
     end
 
     # set og tags for facebook like and share
-    set_meta_tags og: {title: "#{story.story_name}", description: "#{story.story_details}", type: "article", url: "http://bigheart.tw/stories/#{story.id}", image: "http://bigheart.tw#{story.image}"}
-
-    if story.state != 2
+    set_meta_tags og: {title: "#{story.story_name}", description: "#{story.story_details}", type: "article", url: "http://bigheart.tw/stories/#{story.id}", image: "#{story.image}"}
+    set_meta_tags fb: {app_id: "250816725069932"}
+    if story.state != Story::STATES.published
       # check admin role if story state isn't published
       if user_signed_in? && current_user.has_role?(:admin)
         @story = story
@@ -73,12 +72,11 @@ class StoriesController < ApplicationController
   def edit
     authorize! :update, @story
     @story = Story.find(params[:id])
-
     location = []
     Story.parse_location_json(@story.appear_location).keys.each do |l|
       location << l
     end
-    @location = location.join('/')
+    @location = location.join(',')
   end
 
   def update

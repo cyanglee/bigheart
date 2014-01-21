@@ -34,6 +34,26 @@ class Story < ActiveRecord::Base
       "金門縣" => ".金門縣"
   )
 
+  CITIES_MARKER = Hashie::Mash.new(
+      "基隆" => "基隆車站",
+      "臺北&新北" => "臺北車站",
+      "桃園" => "桃園車站",
+      "新竹" => "新竹車站",
+      "苗栗" => "苗栗車站",
+      "臺中" => "臺中車站",
+      "彰化" => "彰化車站",
+      "南投" => "濁水車站",
+      "雲林" => "雲林車站",
+      "嘉義" => "嘉義車站",
+      "臺南" => "臺南車站",
+      "高雄" => "高雄車站",
+      "屏東" => "屏東車站",
+      "臺東" => "臺東車站",
+      "花蓮" => "花蓮車站",
+      "宜蘭" => "宜蘭車站",
+      "澎湖" => "馬公市",
+      "金門" => "山外車站"
+  )
 
   #define state machine
   STATES = Hashie::Mash.new(
@@ -80,7 +100,7 @@ class Story < ActiveRecord::Base
   # manage location coordinate for saving
   def self.manage_coordinate(city, locations)
     coordinates = {}
-    location = locations.split('/').each do |l|
+    locations.split(',').each do |l|
       coordinates["#{l}"] = {}
       coordinates["#{l}"] = get_coordinate(city, l)
     end

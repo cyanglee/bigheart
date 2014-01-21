@@ -34,13 +34,6 @@
         -else
           %li
             %a{"data-toggle" => "modal", :href => "#feedback"} 聯絡管理員
-      .navbar-form.navbar-right
-        .form-group
-          #filters_city
-            %select#cities.form-control
-              %option{value: "*"} 查看全部
-              - Story::CITIES.each do |city, city_class|
-                %option{value: "#{city_class}"} #{city}
       -#.nav.navbar-nav.navbar-right
       -#  - if user_signed_in?
       -#    %li

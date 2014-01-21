@@ -4,8 +4,15 @@
       .modal-header
         %a.close{"data-dismiss" => "modal"}
           %i.fa.fa-times-circle
-        %h3.modal-title 五公里內需要幫助的人
+        %h3.modal-title 地圖
+        #fail
       .modal-body
+        #users_city
+          .form-group.col-md-3{style: "margin-bottom: 20px; padding-left: 0px; padding-right: 30px;"}
+            %select#selected_city.form-control
+              - Story::CITIES_MARKER.each do |city, city_class|
+                %option{value: "#{city_class}"} #{city}
+        .clearfix
         #index_map{"data-action" => "index", "data-details" => "#{@details.to_json}", "data-titles" => "#{@details.keys}"}
       .modal-footer{style: "margin-top: 0px"}
         %button.btn.btn-default{"data-dismiss" => "modal", type: "button"} 關閉
@@ -16,64 +23,213 @@
         action = index_map.data('action');
     GMaps.geolocate({
         success: function(position){
-            GMaps.geocode({
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
-                callback: function(results, status) {
-                    if (status == 'OK') {
-                        city = results[4]['address_components'][0]['long_name']
-                    }
-                }
-            });
-
+            //filter stories which is in the same city with users location
+                //GMaps.geocode({
+                //    lat: position.coords.latitude,
+                //    lng: position.coords.longitude,
+                //    callback: function(results, status) {
+                //        if (status == 'OK') {
+                //            $('#stories').isotope({
+                //                filter: '.' + results[4]['address_components'][0]['long_name'].replace(/ /g,'')
+                //            });
+                //            $('#filters_city select').select2('val', results[4]['address_components'][0]['long_name'].replace(/ /g,''));
+                //            //console.log(city)
+                //            //var after = $('#filters_city select').val();
+                //        }
+                //        //console.log(after)
+                //    }
+                //});
+            var users_lat = position.coords.latitude,
+                users_lng = position.coords.longitude;
             var map = new GMaps({
                 el: '#index_map',
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
+                lat: users_lat,
+                lng: users_lng,
                 height: '558px',
-                width: '558px',
+                width: 'auto',
                 zoom: 14
             });
 
             $('#toggle_map').on('shown.bs.modal', function () {
                 map.refresh();
-                map.setCenter(position.coords.latitude, position.coords.longitude);
-            });
-
-            map.addMarker({
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
-                title: 'You are here.',
-                icon: '/assets/green-dot.png',
-                infoWindow: {
-                    content: '<p>你在這邊!</p>'
+                if (typeof chosen_lat != 'undefined' && typeof chosen_lng != 'undefined') {
+                    map.setCenter(chosen_lat, chosen_lng);
+                }
+                else {
+                    map.setCenter(users_lat, users_lng)
                 }
             });
+
+            var init_marker = map.addMarker({
+                lat: users_lat,
+                lng: users_lng,
+                title: '您的位置',
+                icon: '/assets/green-dot.png',
+                infoWindow: {
+                    content: '<p>您的位置</p>'
+                }
+            });
+
             for (t = 0; t < titles.length; t++){
                 var title = details[titles[t]]
                     latitude = title['latitude'],
-                    longitude = title['longitude'];
+                    longitude = title['longitude'],
+                    story_id = title['story_id'];
                 for (i = 0; i < latitude.length; i++){
-                    var user_point = new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
-                        story_point = new google.maps.LatLng(latitude[i], longitude[i]),
-                        distance = google.maps.geometry.spherical.computeDistanceBetween(user_point, story_point);
-                    if(distance < 5000){
+                    if (users_lat == latitude[i] && users_lng == longitude[i]) {
+                        console.log(users_latitude)
+                        map.addMarker({
+                            lat: parseFloat(latitude[i]) + 0.0001,
+                            lng: parseFloat(longitude[i]) + 0.0001,
+                            icon: '/assets/red-dot.png',
+                            title: titles[t],
+                            infoWindow: {
+                                content: '<a href="stories/' + story_id + '">' + titles[t] + '</a>'
+                            }
+                        });
+                    }
+                    else {
                         map.addMarker({
                             lat: latitude[i],
                             lng: longitude[i],
                             icon: '/assets/red-dot.png',
+                            title: titles[t],
                             infoWindow: {
-                                content: '<p>' + titles[t] + '</p>'
+                                content: '<a href="stories/' + story_id + '">' + titles[t] + '</a>'
                             }
                         });
                     }
                 }
             }
+
+            $('#users_city select').change(function(){
+            $('#fail').hide();
+                GMaps.geocode({
+                    address: $('#users_city select').val(),
+                    callback: function(results, status) {
+                        if (status == 'OK') {
+                             init_marker.setMap(null);
+                             if (typeof chosen_marker != 'undefined') {
+                                chosen_marker.setMap(null);
+                             }
+                             chosen_lat = results[0]['geometry']['location']['d']
+                             chosen_lng = results[0]['geometry']['location']['e']
+                             chosen_marker = map.addMarker({
+                                lat: parseFloat(chosen_lat) + 0.0001,
+                                lng: parseFloat(chosen_lng) + 0.0001,
+                                title: '您所選擇的定位點',
+                                icon: '/assets/green-dot.png',
+                             });
+                             map.setCenter(chosen_lat, chosen_lng);
+                        }
+                    }
+                });
+            })
+            //add marker when user location and story locations distance are smaller than 5km
+                //for (t = 0; t < titles.length; t++){
+                //    var title = details[titles[t]]
+                //        latitude = title['latitude'],
+                //        longitude = title['longitude'];
+                //    for (i = 0; i < latitude.length; i++){
+                //        var user_point = new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+                //            story_point = new google.maps.LatLng(latitude[i], longitude[i]),
+                //            distance = google.maps.geometry.spherical.computeDistanceBetween(user_point, story_point);
+                //        if(distance < 5000){
+                //            map.addMarker({
+                //                lat: latitude[i],
+                //                lng: longitude[i],
+                //                icon: '/assets/red-dot.png',
+                //                infoWindow: {
+                //                    content: '<p>' + titles[t] + '</p>'
+                //                }
+                //            });
+                //        }
+                //    }
+                //}
         },
         error: function(error){
-            alert('Geolocation failed: '+error.message);
+            console.log('Geolocation failed: '+error.message)
+            $('#users_city').show()
+            $('#fail').html('由於無法取得您的所在位置，請您允許網站存取您的位置或選擇您想瀏覽的城市。')
+            var index_map = $('#index_map'),
+                details = index_map.data('details'),
+                titles = index_map.data('titles'),
+                action = index_map.data('action'),
+                geo_fail_lat = 25.132402,
+                geo_fail_lng = 121.739566;
+            var map = new GMaps({
+                el: '#index_map',
+                lat : geo_fail_lat,
+                lng : geo_fail_lng,
+                height: '558px',
+                width: 'auto',
+                zoom: 14
+            });
+
+            var init_marker = map.addMarker({
+                lat: geo_fail_lat,
+                lng: geo_fail_lng,
+                title: '您的位置',
+                icon: '/assets/green-dot.png',
+                infoWindow: {
+                    content: '<p>您的位置</p>'
+                }
+            });
+
+            for (t = 0; t < titles.length; t++){
+                var title = details[titles[t]]
+                    latitude = title['latitude'],
+                    longitude = title['longitude'],
+                    story_id = title['story_id'];
+                for (i = 0; i < latitude.length; i++){
+                    map.addMarker({
+                        lat: latitude[i],
+                        lng: longitude[i],
+                        icon: '/assets/red-dot.png',
+                        title: titles[t],
+                        infoWindow: {
+                            content: '<a href="stories/' + story_id + '">' + titles[t] + '</a>'
+                        }
+                    });
+                }
+            }
+
+            $('#toggle_map').on('shown.bs.modal', function () {
+                map.refresh();
+                if (typeof chosen_lat != 'undefined' && typeof chosen_lng != 'undefined') {
+                    map.setCenter(chosen_lat, chosen_lng);
+                }
+                else {
+                    map.setCenter(geo_fail_lat, geo_fail_lng);
+                }
+            });
+
+            $('#users_city select').change(function(){
+                $('#fail').hide();
+                    GMaps.geocode({
+                        address: $('#users_city select').val(),
+                        callback: function(results, status) {
+                            if (status == 'OK') {
+                                 init_marker.setMap(null);
+                                 if (typeof chosen_marker != 'undefined') {
+                                    chosen_marker.setMap(null);
+                                 }
+                                 chosen_lat = results[0]['geometry']['location']['d']
+                                 chosen_lng = results[0]['geometry']['location']['e']
+                                 chosen_marker = map.addMarker({
+                                    lat: parseFloat(chosen_lat) + 0.0001,
+                                    lng: parseFloat(chosen_lng) + 0.0001,
+                                    title: '您所選擇的定位點',
+                                    icon: '/assets/green-dot.png',
+                                 });
+                                 map.setCenter(chosen_lat, chosen_lng);
+                            }
+                        }
+                    });
+                })
         },
         not_supported: function(){
             alert("Your browser does not support geolocation");
         }
     });
+    $('#selected_city').select2();

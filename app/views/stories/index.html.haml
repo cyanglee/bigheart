@@ -4,9 +4,16 @@
   = render 'stories/slogan'
 - else
   - Rails.cache.clear
-.btn.btn-info{style: "margin-bottom: 20px; margin-left: 4px;","data-toggle" => "modal", :href => "#toggle_map"} 看看五公里內有誰需要幫助
-= render 'layouts/index_map'
-#stories
+%form.form-inline.pull-right
+  %button.btn.btn-info{"data-toggle" => "modal", :href => "#toggle_map"} 觀看地圖
+  = render 'layouts/index_map'
+  .form-group
+    #filters_city
+      %select#cities.form-control{style: "padding-right: 1px;"}
+        %option{value: "*"} 查看全部
+        - Story::CITIES.each do |city, city_class|
+          %option{value: "#{city_class}"} #{city}
+#stories{style: "margin-top: 50px"}
   - @stories.each do |s|
     .story{class: s.city}
       - if s.image.file.nil?
