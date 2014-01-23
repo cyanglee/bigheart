@@ -11,7 +11,7 @@ puts 'ROLES'
   puts 'role: ' << role
 end
 puts 'DEFAULT USERS'
-user = User.new :name => Settings.ADMIN_NAME, :email => Settings.ADMIN_EMAIL, :password => Settings.ADMIN_PW, :password_confirmation => Settings.ADMIN_PW
+user = User.new :name => ENV['ADMIN_NAME'], :email => ENV['ADMIN_EMAIL'], :password => ENV['ADMIN_PW'], :password_confirmation => ENV['ADMIN_PW']
 puts 'user: ' << user.name
 user.skip_confirmation!
 user.save
