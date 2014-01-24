@@ -1,3 +1,11 @@
+0.2.0 / 2014-01-24 
+==================
+
+ * puts story title with same coodinate in one info window
+ * remove tagsinput.map
+ * Merge branch 'master' of github.com:cyanglee/bigheart into develop
+ * fix fog settings
+ * Merge branch 'release/0.1.9' into develop
 0.1.9 / 2014-01-21 
 ==================
 
