@@ -13,13 +13,12 @@
               - Story::CITIES_MARKER.each do |city, city_class|
                 %option{value: "#{city_class}"} #{city}
         .clearfix
-        #index_map{"data-action" => "index", "data-details" => "#{@details.to_json}", "data-titles" => "#{@details.keys}"}
+        #index_map{"data-action" => "index", "data-details" => "#{@details.to_json}", "data-coordinates" => "#{@details.keys}"}
       .modal-footer{style: "margin-top: 0px"}
         %button.btn.btn-default{"data-dismiss" => "modal", type: "button"} 關閉
 :javascript
     var index_map = $('#index_map'),
-        details = index_map.data('details'),
-        titles = index_map.data('titles'),
+        coordinates = index_map.data('coordinates'),
         action = index_map.data('action');
     GMaps.geolocate({
         success: function(position){
@@ -70,32 +69,35 @@
                 }
             });
 
-            for (t = 0; t < titles.length; t++){
-                var title = details[titles[t]]
-                    latitude = title['latitude'],
-                    longitude = title['longitude'],
-                    story_id = title['story_id'];
-                for (i = 0; i < latitude.length; i++){
-                    if (users_lat == latitude[i] && users_lng == longitude[i]) {
-                        console.log(users_latitude)
+            for (c = 0; c < coordinates.length; c++){
+                lat_lng = coordinates[c].split(','),
+                latitude = lat_lng[0],
+                longitude = lat_lng[1],
+                details = index_map.data('details')[coordinates[c]];
+                content = [];
+                for (t = 0; t < details.length; t++){
+                    title = details[t]['title'],
+                    story_id = details[t]['story_id'],
+                    content_html = '<a href="stories/' + story_id + '">' + title + '</a>',
+                    content.push(content_html);
+                    if (users_lat == latitude && users_lng == longitude) {
                         map.addMarker({
-                            lat: parseFloat(latitude[i]) + 0.0001,
-                            lng: parseFloat(longitude[i]) + 0.0001,
+                            lat: parseFloat(latitude) + 0.0001,
+                            lng: parseFloat(longitude) + 0.0001,
                             icon: '/assets/red-dot.png',
-                            title: titles[t],
                             infoWindow: {
-                                content: '<a href="stories/' + story_id + '">' + titles[t] + '</a>'
+                                content: content.join("<br/>")
                             }
                         });
                     }
                     else {
                         map.addMarker({
-                            lat: latitude[i],
-                            lng: longitude[i],
+                            lat: latitude,
+                            lng: longitude,
                             icon: '/assets/red-dot.png',
-                            title: titles[t],
+                            title: title,
                             infoWindow: {
-                                content: '<a href="stories/' + story_id + '">' + titles[t] + '</a>'
+                                content: content.join("<br/>")
                             }
                         });
                     }
@@ -151,13 +153,9 @@
             console.log('Geolocation failed: '+error.message)
             $('#users_city').show()
             $('#fail').html('由於無法取得您的所在位置，請您允許網站存取您的位置或選擇您想瀏覽的城市。')
-            var index_map = $('#index_map'),
-                details = index_map.data('details'),
-                titles = index_map.data('titles'),
-                action = index_map.data('action'),
-                geo_fail_lat = 25.132402,
-                geo_fail_lng = 121.739566;
-            var map = new GMaps({
+            var geo_fail_lat = 25.132402,
+                geo_fail_lng = 121.739566,
+                map = new GMaps({
                 el: '#index_map',
                 lat : geo_fail_lat,
                 lng : geo_fail_lng,
@@ -176,19 +174,23 @@
                 }
             });
 
-            for (t = 0; t < titles.length; t++){
-                var title = details[titles[t]]
-                    latitude = title['latitude'],
-                    longitude = title['longitude'],
-                    story_id = title['story_id'];
-                for (i = 0; i < latitude.length; i++){
+            for (c = 0; c < coordinates.length; c++){
+                lat_lng = coordinates[c].split(','),
+                latitude = lat_lng[0],
+                longitude = lat_lng[1],
+                details = index_map.data('details')[coordinates[c]];
+                content = [];
+                for (t = 0; t < details.length; t++){
+                    title = details[t]['title'],
+                    story_id = details[t]['story_id'],
+                    content_html = '<a href="stories/' + story_id + '">' + title + '</a>',
+                    content.push(content_html);
                     map.addMarker({
-                        lat: latitude[i],
-                        lng: longitude[i],
+                        lat: latitude,
+                        lng: longitude,
                         icon: '/assets/red-dot.png',
-                        title: titles[t],
                         infoWindow: {
-                            content: '<a href="stories/' + story_id + '">' + titles[t] + '</a>'
+                            content: content.join("<br/>")
                         }
                     });
                 }
