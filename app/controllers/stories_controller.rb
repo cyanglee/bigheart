@@ -4,21 +4,19 @@ class StoriesController < ApplicationController
 
   def index
     # TODO: change the hardcoded value to reference
-      @stories = Story.where(state: Story::STATES.published)
-      # get location latitude and longitude
-      @details = {}
-
-      @stories.each do |s|
-        @details[s.story_name] = {}
-        @details[s.story_name][:latitude] = []
-        @details[s.story_name][:longitude] = []
-        @details[s.story_name][:story_id] = s.id
-        Story.parse_location_json(s.appear_location).each do |l, c|
-          lat_n_lng = c.split(',')
-          @details[s.story_name][:latitude] << lat_n_lng[0]
-          @details[s.story_name][:longitude] << lat_n_lng[1]
+    @stories = Story.where(state: Story::STATES.published)
+    # get location latitude and longitude
+    @details = {}
+    @stories.each do |s|
+      Story.parse_location_json(s.appear_location).each do |l, c|
+        if @details[c].present?
+          @details[c] << {"title" => s.story_name, "story_id" => s.id}
+        else
+          @details[c] = []
+          @details[c] << {"title" => s.story_name, "story_id" => s.id}
         end
       end
+    end
   end
 
   def show
